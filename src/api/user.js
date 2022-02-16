@@ -1,15 +1,13 @@
 import axios from 'axios';
 
-const url = 'https://localhost:8080'; 
+const url = 'http://localhost:3002/'; 
 
 export function register(newUser) {
     return axios.post(url+'Register', {
-        email: newUser.Mail,
-        nombreUsuario: newUser.Username,
-        contrasena: newUser.Password,
+        name: newUser.name,
     })
         .then(async (response) => {
             console.log(response.data);
-            return response.data;
+            return response.data.name;
         })
 }
