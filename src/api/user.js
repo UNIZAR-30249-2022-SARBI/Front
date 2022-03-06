@@ -1,13 +1,13 @@
 import axios from 'axios';
 
-const url = 'http://localhost:3002/'; 
+const url = 'http://localhost:3001/'; 
 
-export function register(newUser) {
-    return axios.post(url+'Register', {
-        name: newUser.name,
+export function login(email) {
+    return axios.post(url+'login', {
+        email: email,
     })
         .then(async (response) => {
             console.log(response.data);
-            return response.data.name;
+            return response.data.email;
         })
 }

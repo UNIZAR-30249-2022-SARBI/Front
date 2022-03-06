@@ -1,9 +1,10 @@
-import React from 'react';
+import { React, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import Logo from '../assets/Logo.jpeg';
 import './login.css';
+import { login } from '../api/user';
 
 const logo = {
 	display: 'flex',
@@ -40,7 +41,17 @@ function handleClick(e) {
 };
 
 const Login = () => {
+	const [email, setEmail] = useState(false);
+	useEffect(() => {
+		fetch();
+	}, []);
 
+	async function fetch() {
+		await login( 'MICUZ')
+			.then(response => {
+				setEmail(response);
+			});
+	}
 
 	return (
 		<div style={form}>	
@@ -49,8 +60,8 @@ const Login = () => {
 					<img src={Logo} alt="Logo" />
 				</div>
 				<div style={inputContainer}>
-					<label style={{marginRight:'10px'}}> Correo: </label>
-					<input style={{borderRadius:'5px'}} type="mail" name="email" required/>
+					<label style={{ marginRight: '10px' }}> Correo:</label>
+					<input style={{ borderRadius: '5px' }} type="mail" name="email" value={email} required/>
 				</div>
 				<div style={button}>
 					<button onClick={(e) => handleClick(e)} style={{borderRadius:'5px', fontSize: '20px', border: '2px solid Red'}}> Acceder </button>
