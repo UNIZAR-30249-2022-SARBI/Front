@@ -1,16 +1,19 @@
 import { React, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import { useState } from "react";
-import { useHistory } from "react-router-dom";
-import Logo from '../assets/Logo.jpeg';
+import { Navigate, useNavigate } from "react-router-dom";
+import Logo from '../assets/Logo.png';
 import './login.css';
 import { login } from '../api/user';
+import axios from 'axios';
 
 const logo = {
 	display: 'flex',
 	justifyContent: 'center',
 	alignItems: 'center',
 	marginTop: '3vh',
+	with: '20vh',
+	height: '20vh'
 };
 
 const form = {
@@ -33,15 +36,15 @@ const button = {
 	alignItems: 'center',
 	marginTop: '10vh',
 	borderRadius: '12px',
+	marginLeft: '2vh',
 };
 
-function handleClick(e) {
-	// Gestionar comprobacion email, identificacion y redireccion
 
-};
 
+const baseUrl= "http://localhost:8080"
 const Login = () => {
-	const [email, setEmail] = useState(false);
+	const [email, setEmail] = useState("");
+	const history = useNavigate();
 	useEffect(() => {
 		fetch();
 	}, []);
@@ -53,6 +56,28 @@ const Login = () => {
 			});
 	}
 
+	async function handleClick(e) {
+		// Gestionar comprobacion email, identificacion y redireccion
+		e.preventDefault();
+		let loginInfo = {
+			email: email,
+		}
+		if(!validateEmail(email)){
+			alert("El email no pertenece a la universidad de Zaragoza");
+		}else{
+			navigate("/")
+		}
+	
+	};
+
+	const validateEmail = (email) => {
+		return String(email)
+		  .toLowerCase()
+		  .match(
+			/.+@unizar.es/
+		  );
+	};
+
 	return (
 		<div style={form}>	
 			<form>
@@ -61,10 +86,10 @@ const Login = () => {
 				</div>
 				<div style={inputContainer}>
 					<label style={{ marginRight: '10px' }}> Correo:</label>
-					<input style={{ borderRadius: '5px' }} type="mail" name="email" value={email} required/>
+					<input style={{height: '20px', width: '160px', marginLeft: '5px'}} type="email" pattern=".+@unizar.es" required value={email} onChange={e => setEmail(e.target.value)} />
 				</div>
 				<div style={button}>
-					<button onClick={(e) => handleClick(e)} style={{borderRadius:'5px', fontSize: '20px', border: '2px solid Red'}}> Acceder </button>
+					<button onClick={(e) => handleClick(e)} style={{ backgroundColor: "#685cf4", color: 'whitesmoke', borderRadius: '4px', height: '50px', width: '130px' }}> Iniciar sesión </button>
 				</div>
 			</form>
 		</div>
