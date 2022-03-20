@@ -36,7 +36,7 @@ const button = {
 	alignItems: 'center',
 	marginTop: '10vh',
 	borderRadius: '12px',
-	marginLeft: '2vh',
+	marginLeft: '1vh',
 };
 
 
@@ -85,11 +85,10 @@ const Login = () => {
 					<img src={Logo} alt="Logo" />
 				</div>
 				<div style={inputContainer}>
-					<label style={{ marginRight: '10px' }}> Correo:</label>
-					<input style={{height: '20px', width: '160px', marginLeft: '5px'}} type="email" pattern=".+@unizar.es" required value={email} onChange={e => setEmail(e.target.value)} />
+					<input style={{height: '20px', width: '160px', marginLeft: '5px'}} type="email" placeholder="Correo electrónico" pattern=".+@unizar.es" required value={email} onChange={e => setEmail(e.target.value)} />
 				</div>
 				<div style={button}>
-					<button onClick={(e) => handleClick(e)} style={{ backgroundColor: "#685cf4", color: 'whitesmoke', borderRadius: '4px', height: '50px', width: '130px' }}> Iniciar sesión </button>
+					<button onClick={(e) => handleClick(e)} style={{ backgroundColor: "#8BC34A", color: 'whitesmoke', borderRadius: '10px', height: '40px', width: '120px', fontSize:'15px' }}> Login </button>
 				</div>
 			</form>
 		</div>

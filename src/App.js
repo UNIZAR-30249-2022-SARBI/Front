@@ -8,12 +8,16 @@ import {
   Redirect
 } from 'react-router-dom';
 import Login from './pages/login.js';
+import DataLoad from './pages/dataLoad.js';
+import AdminMenu from './pages/adminMenu.js';
 
 function App() {
   return (
     <Router>
 		<Routes>
 			<Route path='/' exact={true} element={<Login/>} />
+      <Route path='/dataLoad' element={<DataLoad/>}/>
+      <Route path='/adminMenu' element={<AdminMenu/>}/>
 		</Routes>
 	</Router>
   );
