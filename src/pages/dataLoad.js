@@ -8,7 +8,7 @@ import axios from 'axios';
 import { Alert } from 'react-alert'
 import { Dropdown, DropdownButton } from 'react-bootstrap';
 import Logo from '../assets/Logo.png';
-
+import { ReactSession } from 'react-client-session';
 
 const column = {
     display: 'flex',
@@ -60,6 +60,8 @@ const DataLoad = () => {
     const history = useNavigate();
     const [file, setFile] = useState(undefined);
     const [selectedFileDropdown, setSelectedFileDropdown] = useState("Aulas");
+
+    const email = ReactSession.get("email");
 
     const handleUpload = (event) => {
         const selectedFile = event.target.files[0];
@@ -123,6 +125,7 @@ const DataLoad = () => {
                 <div style={logo}>
 					<img src={Logo} width= "140px" height="140px" alt="Logo" />
 			    </div>
+                <p>Identificado como: {email}</p>
                 </Col>
                 <p>&nbsp;</p>
                 <Col>

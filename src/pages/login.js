@@ -6,6 +6,7 @@ import Logo from '../assets/Logo.png';
 import './login.css';
 import { login } from '../api/user';
 import axios from 'axios';
+import { ReactSession } from 'react-client-session';
 
 const logo = {
 	display: 'flex',
@@ -65,7 +66,8 @@ const Login = () => {
 		if(!validateEmail(email)){
 			alert("El email no pertenece a la universidad de Zaragoza");
 		}else{
-			history("/adminMenu")
+			ReactSession.set("email", email);
+			history("/adminMenu");
 		}
 	
 	};
