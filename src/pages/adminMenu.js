@@ -49,15 +49,15 @@ const logo = {
 	display: 'flex',
 	justifyContent: 'center',
 	alignItems: 'center',
-  marginTop: '20px',
-  marginLeft: '-650px',
+  marginTop: '-65px',
+  marginLeft: '-1450px',
 	width: '1px',
 	height: '1px'
 };
 
 const AdminMenu = () => {
 
-  const history = useNavigate();
+  const navigate = useNavigate();
   
   function handleClick(e, page) {
     e.preventDefault();
@@ -87,20 +87,20 @@ const AdminMenu = () => {
               </div>
           </div> 
           <div style={isMobile ? column : row}>
-            <div style={{ display: 'block', width: 700, padding: 30 }}>
+            <div style={{ display: 'block', width: 700, padding: 30, marginLeft: 1850, marginTop: -140 }}>
               <Dropdown>
                   <Dropdown.Toggle variant="success">
                     Open Menu
                   </Dropdown.Toggle>
                   <Dropdown.Menu>
-                    <Dropdown.Item href="#">
-                      Home Page
+                    <Dropdown.Item href="#" onClick={()=>navigate("/dataLoad")}>
+                      Cargar datos
                     </Dropdown.Item>
                     <Dropdown.Item href="#">
-                      Settings
+                      Calendarios
                     </Dropdown.Item>
                     <Dropdown.Item href="#">
-                      Logout
+                      Horarios
                     </Dropdown.Item>
                   </Dropdown.Menu>
               </Dropdown>

@@ -65,7 +65,7 @@ const Login = () => {
 		if(!validateEmail(email)){
 			alert("El email no pertenece a la universidad de Zaragoza");
 		}else{
-			navigate("/")
+			history("/adminMenu")
 		}
 	
 	};
