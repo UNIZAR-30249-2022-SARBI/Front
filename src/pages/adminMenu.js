@@ -26,26 +26,6 @@ const column = {
   marginRight: '15%',
 };
 
-
-const clickableButton = {
-  flex: 1,
-  backgroundColor: "white",
-  color: '#2422BD',
-  width: '100%',
-  height: '160vh',
-  borderColor: 'whitesmoke'
-}
-const unclickableButton = {
-  flex: 1,
-  alignItems: 'center',
-  justifyContent: 'center',
-  backgroundColor: "#62C066",
-  color: 'white',
-  borderRadius: '4px',
-  width: '50vh',
-  borderColor: '#5BAA5E'
-}
-
 const logo = {
   display: 'flex',
   justifyContent: 'center',
@@ -94,7 +74,7 @@ const AdminMenu = () => {
           <div style={{ display: 'block', width: 700, padding: 30, marginLeft: 1850, marginTop: -140 }}>
             <Dropdown>
               <Dropdown.Toggle variant="success">
-                Open Menu
+                Menu
               </Dropdown.Toggle>
               <Dropdown.Menu>
                 <Dropdown.Item href="#" onClick={() => navigate("/dataLoad")}>
@@ -103,7 +83,7 @@ const AdminMenu = () => {
                 <Dropdown.Item href="#">
                   Calendarios
                 </Dropdown.Item>
-                <Dropdown.Item href="#">
+                <Dropdown.Item href="#" onClick={() => navigate("/createSchedule")}>
                   Horarios
                 </Dropdown.Item>
               </Dropdown.Menu>
