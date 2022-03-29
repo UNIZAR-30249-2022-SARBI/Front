@@ -69,7 +69,7 @@ const AdminMenu = () => {
             <img src={Logo} width="140px" height="140px" alt="Logo" />
           </div>
         </div>
-        <p>Identificado como: {email}</p>
+        <p data-testid='session-text'>Identificado como: {email}</p>
         <div style={isMobile ? column : row}>
           <div style={{ display: 'block', width: 700, padding: 30, marginLeft: 1850, marginTop: -140 }}>
             <Dropdown>
