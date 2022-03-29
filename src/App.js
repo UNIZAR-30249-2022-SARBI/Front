@@ -10,18 +10,21 @@ import {
 import Login from './pages/login.js';
 import DataLoad from './pages/dataLoad.js';
 import AdminMenu from './pages/adminMenu.js';
-import CreateSchedule from './pages/createSchedule.js';
+import CreateCalendar from './pages/createCalendar.js';
 
 function App() {
-  return (
+	return (
+	  <div class="App-header">
     <Router>
-      <Routes>
-        <Route path='/' exact={true} element={<Login/>} />
-        <Route path='/dataLoad' element={<DataLoad/>}/>
-        <Route path='/adminMenu' element={<AdminMenu/>}/>
-        <Route path='/createSchedule' element={<CreateSchedule/>}/>
-      </Routes>
-  	</Router>
+		<Routes>
+			<Route path='/' exact={true} element={<Login/>} />
+			  <Route path='/dataLoad' element={<DataLoad/>}/>
+			  <Route path='/adminMenu' element={<AdminMenu/>}/>
+			<Route path='/' exact={true} element={<Login />} />
+			<Route path='/createCalendar' element={<CreateCalendar/>} />
+		</Routes>
+	</Router>
+			</div>
   );
 }
 

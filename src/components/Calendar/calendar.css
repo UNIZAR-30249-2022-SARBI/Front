@@ -1,0 +1,182 @@
+.calendarRow {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.modalTitle {
+ 
+}
+
+.calendarTable {
+    border-collapse: collapse;
+    border-spacing: 0;
+    font-family: Tahoma;
+    font-size: medium;
+    width: 60vw;
+}
+
+    .calendarTable td {
+        border-style: solid;
+        border-width: 0px;
+        overflow: hidden;
+        padding-left: 1vw;
+        padding-right: 0.4vw;
+        word-break: normal;
+        vertical-align: central;
+    }
+
+    .calendarTable pre {
+        font-family: Tahoma;
+        margin: 0;
+        display: flex;
+        flex-direction: row;
+        text-align:right
+    }
+
+    .calendarTable preHeader {
+        font-size: small;
+        margin-right: 1vw;
+        margin-left: 0.65vw;
+        white-space: nowrap;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .calendarTable th {
+        border-style: solid;
+        font-weight: normal;
+        word-break: normal;
+        background-color: black;
+        border-color: black;
+        border-width: medium;
+        color: orange;
+        vertical-align: central;
+        padding-left: 0.4vw;
+        padding-right: 0.5vw;
+        font-size: small;
+    }
+
+    .calendarTable .header {
+        background-color: white;
+        color: black;
+        font-weight: bold;
+        border-width: medium;
+        border-color: black;
+        text-align: center;
+        padding-left: 1.5vw;
+        padding-right: 1.5vw;
+        font-size: small;
+    }
+    .calendarTable .monthHeader {
+        width: 90px;
+    }
+    .calendarTable .orangeLetter {
+        color: orange;
+        background-color: black;
+        font-weight: normal;
+        padding: 0vw;
+    }
+
+    .calendarTable .headerWithoutBottom {
+        background-color: white;
+        color: black;
+        font-weight: bold;
+        border-right-width: medium;
+        border-top-width: medium;
+        border-left-width: medium;
+        border-color: black;
+        border-bottom-width: 0vh;
+        text-align: center;
+        font-size: small;
+        padding-left: 1.5vw;
+        padding-right: 1.5vw;
+    }
+
+    .calendarTable .headerWithoutTop {
+        background-color: white;
+        color: black;
+        font-weight: bold;
+        border-right-width: medium;
+        border-bottom-width: medium;
+        border-left-width: medium;
+        border-color: black;
+        border-top-width: 0vh;
+        text-align: center;
+        font-size: small;
+        padding-left: 1.5vw;
+        padding-right: 1.5vw;
+    }
+
+    .calendarTable .bottomBorder {
+        border-bottom-color: black;
+        border-bottom-width: medium;
+    }
+
+    .calendarTable .rightBottomBorder {
+        border-right-color: black;
+        border-bottom-color: black;
+        border-right-width: medium;
+        border-bottom-width: medium;
+    }
+
+    .calendarTable .rightTopBorder {
+        border-right-color: black;
+        border-top-color: black;
+        border-right-width: medium;
+        border-top-width: medium;
+    }
+
+    .calendarTable .topBorder {
+        border-top-width: medium;
+        border-top-color: black;
+    }
+
+    .calendarTable .rightBorder {
+        border-right-width: medium;
+        border-right-color: black;
+    }
+
+    .calendarTable .weekNumber {
+        text-align: center;
+        padding: 0vw 0.8vw;
+    }
+
+    .calendarTable .whiteLetter {
+        color:white;
+    }
+
+.legendHeader {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between
+}
+    .legendHeader pre {
+    }
+
+.legendRow {
+    display: flex;
+    flex-direction: row;
+    align-content: start;
+}
+
+.square {
+    width: 2.8vh;
+    height: 2.8vh;
+    border: 0.1vh solid white;
+    margin-top: 0.1vw;
+}
+
+.squareWithBorder {
+    width: 2.8vh;
+    height: 2.8vh;
+    border: 0.3vh solid black;
+    margin-top: 0.1vw;
+}
+
+.legendText {
+    font-family: Tahoma;
+    font-size: small;
+}
