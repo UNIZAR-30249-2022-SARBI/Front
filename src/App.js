@@ -15,13 +15,13 @@ import CreateSchedule from './pages/createSchedule.js';
 function App() {
   return (
     <Router>
-		<Routes>
-			<Route path='/' exact={true} element={<Login/>} />
-      <Route path='/dataLoad' element={<DataLoad/>}/>
-      <Route path='/adminMenu' element={<AdminMenu/>}/>
-      <Route path='/createSchedule' element={<CreateSchedule/>}/>
-		</Routes>
-	</Router>
+      <Routes>
+        <Route path='/' exact={true} element={<Login/>} />
+        <Route path='/dataLoad' element={<DataLoad/>}/>
+        <Route path='/adminMenu' element={<AdminMenu/>}/>
+        <Route path='/createSchedule' element={<CreateSchedule/>}/>
+      </Routes>
+  	</Router>
   );
 }
 

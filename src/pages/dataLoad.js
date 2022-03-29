@@ -57,7 +57,7 @@ const DataLoad = () => {
     const [currentSheet, setCurrentSheet] = useState({});
     const [errors, setErrors] = useState(["Error en la línea 12", "Error en la línea 64"]);
     const [error, setError] = useState(false);
-    const history = useNavigate();
+
     const [file, setFile] = useState(undefined);
     const [selectedFileDropdown, setSelectedFileDropdown] = useState("Aulas");
 
