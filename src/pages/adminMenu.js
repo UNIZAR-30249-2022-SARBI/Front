@@ -80,7 +80,7 @@ const AdminMenu = () => {
                 <Dropdown.Item href="#" onClick={() => navigate("/dataLoad")}>
                   Cargar datos
                 </Dropdown.Item>
-                <Dropdown.Item href="#">
+                <Dropdown.Item href="#" onClick={() => navigate("/createCalendar")}>
                   Calendarios
                 </Dropdown.Item>
                 <Dropdown.Item href="#" onClick={() => navigate("/createSchedule")}>
