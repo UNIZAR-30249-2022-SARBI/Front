@@ -4,10 +4,25 @@
     justify-content: space-between;
 }
 
-.modalTitle {
- 
+.modalRow {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
-
+.modalTitle {
+    display: flex;
+    flex-direction: column;
+    margin-top: 1vh;
+}
+.modalOption {
+    display: flex;
+    flex-direction: column;
+}
+.modalButton {
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+}
 .calendarTable {
     border-collapse: collapse;
     border-spacing: 0;
@@ -151,7 +166,7 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: space-between
+    justify-content: start;
 }
     .legendHeader pre {
     }
@@ -159,7 +174,6 @@
 .legendRow {
     display: flex;
     flex-direction: row;
-    align-content: start;
 }
 
 .square {
@@ -173,7 +187,7 @@
     width: 2.8vh;
     height: 2.8vh;
     border: 0.3vh solid black;
-    margin-top: 0.1vw;
+    margin-left:5vw;
 }
 
 .legendText {

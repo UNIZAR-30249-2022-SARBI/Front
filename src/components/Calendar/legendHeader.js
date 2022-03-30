@@ -7,6 +7,10 @@ const LegendHeader = () => {
             comment: "Día lectivo sin prácticas programadas por la Escuela"
         },
         {
+            type: FESTIVE,
+            comment: "Día no lectivo"
+        },
+        {
             type: CHANGE_DAY,
             comment: "Día con horario de otro de día de la semana "
         },
@@ -22,10 +26,7 @@ const LegendHeader = () => {
             type: CONTINUE_CONVOCATORY,
             comment: "Día para la realización, en su caso, de las actividades finales de evaluación continua"
         },
-        {
-            type: FESTIVE,
-            comment: "Día no lectivo"
-        },
+
     ];
     const legendsList = legendInfo.map((legend, index) => {
         var color = getTypeColor(legend.type);

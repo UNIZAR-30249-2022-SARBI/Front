@@ -30,7 +30,7 @@ const logo = {
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: '6vh',
-    marginLeft: '-8vh',
+    marginLeft: '-30vh',
     width: '1px',
     height: '1px'
   };
@@ -48,7 +48,7 @@ const drop = {
 const column = {
     display: 'flex',
     flexDirection: 'column',
-    marginTop: '0vh',
+    marginTop: '2vh',
     marginBottom: '2vh',
     alignItems: 'center',
     marginLeft: '-130vh',
@@ -57,16 +57,16 @@ const column = {
 const column2 = {
     display: 'flex',
     flexDirection: 'column',
-    marginTop: '-12vh',
+    marginTop: '-16vh',
     justifyContent: 'center',
-    marginLeft: '55vh',
+    marginLeft: '50vh',
     marginRight: '2vh',
 };
 
 const column3 = {
     display: 'flex',
     flexDirection: 'column',
-    marginTop: '-10vh',
+    marginTop: '-15vh',
     justifyContent: 'center',
     marginLeft: '85vh',
     marginRight: '2vh',
@@ -75,7 +75,7 @@ const column3 = {
 const column4 = {
     display: 'flex',
     flexDirection: 'column',
-    marginTop: '-10vh',
+    marginTop: '-15vh',
     justifyContent: 'center',
     marginLeft: '115vh',
     marginRight: '2vh',

@@ -19,14 +19,17 @@ const useStyles = makeStyles((theme) => ({
     modal: {
         position: 'absolute',
         backgroundColor: theme.palette.background.paper,
+        padding: theme.spacing(3, 7, 3),
         border: '0.4vh solid graylight',
         boxShadow: theme.shadows[5],
-        padding: theme.spacing(3, 7, 3),
-        top: '50%',
-        left: '50%',
+        width: '55vh',
+        height: '36vh',
+        top: '50vh',
+        left: '50vw',
         transform: 'translate(-50%, -50%)',
         borderStyle: 'outset',
         borderRadius: '1vh',
+
     },
     iconos: {
         cursor: 'pointer'
@@ -34,9 +37,7 @@ const useStyles = makeStyles((theme) => ({
     inputMaterial: {
         width: '100%'
     },
-    modalButton: {
-        marginTop:'1vw'
-    },
+
     input: {
         height: '4vh',
         width: '40vh',
@@ -76,18 +77,21 @@ const CalendarTable = ({ calendarArray, editable, enableHeader, fetchCalendar })
                 return NORMAL
         }
     }
-
+    const getUTCDate = (d) => {
+        const date = new Date(d).toISOString().substring(0, 10);
+        return date;
+    }
     const openModal = (date) => {
         let dateInfo = calendarArray.find(d => d.date == date)
         setChangeDayInfo(dateInfo)
-        setChangeDate(dateInfo.date);
+        setChangeDate(getUTCDate(dateInfo.date));
         let type = dateInfo.type
         setChangeDateType(getTypeName(type));
         if (type == CHANGE_DAY)
             setChangeDateComment(getWeekdayName(dateInfo.day))
         else 
             setChangeDateComment(dateInfo.comment)
-        let letter = dateInfo.week.charAt(0);
+        let letter = dateInfo.week?.charAt(0);
         if (!(letter == 'a' || letter == 'b')) setChangeDateOption("Normal");
         else setChangeDateOption(letter)
         toggleModal();
@@ -98,13 +102,15 @@ const CalendarTable = ({ calendarArray, editable, enableHeader, fetchCalendar })
     };
 
     const getTypeConst = () => {
-        if (changeDateType == NORMAL)
+        if (changeDateType === NORMAL)
             return SCHOOL;
-        else if (changeDateType == FESTIVO)
-            return FESTIVE
-        else if (changeDateType != EVALUACION)
-            return changeDateType
-        else 
+        else if (changeDateType === FESTIVO)
+            return FESTIVE;
+        else if (changeDateType === CHANGE_DAY_OPTION)
+            return CHANGE_DAY;
+        else if (changeDateType !== EVALUACION)
+            return changeDateType;
+        else
             if (changeDateComment.includes("continua"))
                 return CONTINUE_CONVOCATORY
             else if (changeDateComment.includes("1"))
@@ -121,16 +127,20 @@ const CalendarTable = ({ calendarArray, editable, enableHeader, fetchCalendar })
         else
             return getWeekConst(changeDateComment);
     }
-
+    const getWeekLetter = () => {
+        if (changeDateOption === NORMAL)
+            return "";
+        else
+            return changeDateOption;
+    }
     const saveModal = async () => {
-        console.log("SAVEMODAL",changeDate)
         let date = new Date(new Date(changeDate).getTime())
         let dateInfo = {
             date: date,
             type: getTypeConst(),
             day: getWeekDay(),
             comment: changeDateComment,
-            week: changeDateOption
+            week: getWeekLetter()
         };
         await editDayEINA(dateInfo)
         .then(response=>{
@@ -149,23 +159,32 @@ const CalendarTable = ({ calendarArray, editable, enableHeader, fetchCalendar })
             return (null)
         if (changeDateType == CHANGE_DAY_OPTION)
             return (
-                <div class="modalTitle">
+                <div class="modalRow">
                     <p class="modalTitle">Cambiar a </p>
+                    <div class="modalOption">
+
                     <DropdownButton id="dropdown-item-button" title={changeDateComment} variant="light">
                         {changeDayOptions.map((option) => (
                             <Dropdown.Item as="button" onClick={(option) => setChangeDateComment(option.target.innerText)}>{option}</Dropdown.Item>))}
-                    </DropdownButton>
+                        </DropdownButton>
+                    </div>
                 </div>)
         else if (changeDateType == EVALUACION)
             return (
-                <div className={styles.input}>
-                    <DropdownButton id="dropdown-item-button" title={changeDateComment} variant="light">
+                <div class="modalRow">
+                    <p class="modalTitle">Tipo de evaluación </p>
+                    <div class="modalOption">
+
+                     <DropdownButton id="dropdown-item-button" title={changeDateComment} variant="light">
                         {examOptions.map((option) => (
                             <Dropdown.Item as="button" onClick={(option) => setChangeDateComment(option.target.innerText)}>{option}</Dropdown.Item>))}
                     </DropdownButton>
-                </div>)
+                    </div>
+                </div>
+            )
             else 
-                return (<input type="text" className={styles.input} value={changeDateComment} placeholder="Descripción"
+            return (
+                <input type="text" className={styles.input} value={changeDateComment} placeholder="Descripción"
                     onChange={(comment) => setChangeDateComment(comment.target.value)} />);
 
     }
@@ -173,22 +192,27 @@ const CalendarTable = ({ calendarArray, editable, enableHeader, fetchCalendar })
     const modal = (
         <div className={styles.modal}>
             <h4>Editar {changeDate}</h4>
-            <div class="modalTitle">
+            <div class="modalRow">
                 <p class="modalTitle">Semana</p>
+                <div class="modalOption">
                 <DropdownButton id="dropdown-item-button" title={changeDateOption} variant="light">
                     {changeWeekOptions.map((option) => (
                         <Dropdown.Item as="button" onClick={(option) => setChangeDateOption(option.target.innerText)}>{option}</Dropdown.Item>))}
-                </DropdownButton>
+                    </DropdownButton>
+                    </div>
             </div>
-            <div class="modalTitle">
+            <div class="modalRow">
                 <p class="modalTitle">Tipo</p>
+                <div class="modalOption">
+
                 <DropdownButton id="dropdown-item-button" title={changeDateType} variant="light">
                     {typeOptions.map((option) => (
                         <Dropdown.Item as="button" onClick={(option) => { setChangeDateType(option.target.innerText); setChangeDateComment("")}}>{option}</Dropdown.Item>))}
-                </DropdownButton>
+                    </DropdownButton>
+                </div>
             </div>
             {modalTypeInput()}
-            <div className={styles.modalButton} align="right">
+            <div class="modalButton">
                 <Button color="primary" onClick={() => saveModal()}>Editar</Button>
                 <Button onClick={() => toggleModal()}>Cancelar</Button>
             </div>
@@ -196,7 +220,6 @@ const CalendarTable = ({ calendarArray, editable, enableHeader, fetchCalendar })
     );
 
     const tBodies = yearCalendar.map((monthValues, index) => {
-        console.log("FINAL------------DAFD--- " + JSON.stringify(yearCalendar))
 
         const weekValues = Object.values(monthValues.weeks);
         const weekRows = weekValues.map((actualWeek, i) => {
@@ -206,12 +229,10 @@ const CalendarTable = ({ calendarArray, editable, enableHeader, fetchCalendar })
             var weekRows = actualWeek.dayInfo.map(function (actualDay, day) {
                 const dateValue = new Date(actualDay.date).getDate();
                 var color = getTypeColor(actualDay.type);
-                //console.log("Final----THISDATE---" + JSON.stringify(actualDay))
                 var styleClass =
                     getBorderStyle(actualDay.date, actualDay.day, actualDay.type);
                 if (actualDay.type == NO_SCHOOL)
                     return <td class={styleClass} key={i} />;
-                console.log("Final----THISDATE---" + JSON.stringify(actualDay))
 
                
                 if (actualDay.day == SUNDAY || actualDay.day == SATURDAY) {

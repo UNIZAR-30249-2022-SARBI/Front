@@ -9,7 +9,7 @@ import { ReactSession } from 'react-client-session';
 const row = {
   display: 'flex',
   flexDirection: 'row',
-  marginTop: '5vh',
+  marginTop: '2vh',
   alignItems: 'center',
   justifyContent: 'center',
   color: 'white',
@@ -19,7 +19,6 @@ const row = {
 const column = {
   display: 'flex',
   flexDirection: 'column',
-  marginTop: '3%',
   marginBottom: '5%',
   alignItems: 'center',
   marginLeft: '15%',
@@ -27,11 +26,12 @@ const column = {
 };
 
 const logo = {
-  display: 'flex',
+    display: 'flex',
+    flexDirection: 'row',
   justifyContent: 'center',
   alignItems: 'center',
-  marginTop: '-65px',
-  marginLeft: '-1450px',
+    marginLeft: '-1450px',
+    marginTop: '2vh',
   width: '1px',
   height: '1px'
 };

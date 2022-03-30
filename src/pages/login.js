@@ -12,9 +12,9 @@ const logo = {
 	display: 'flex',
 	justifyContent: 'center',
 	alignItems: 'center',
-	marginTop: '3vh',
-	with: '20vh',
-	height: '20vh'
+	marginTop: '4vh',
+	with: '50vw',
+	height: '40vh'
 };
 
 const form = {
@@ -50,12 +50,12 @@ const Login = () => {
 		fetch();
 	}, []);
 
-	async function fetch() {
+	/*async function fetch() {
 		await login( 'MICUZ')
 			.then(response => {
 				setEmail(response);
 			});
-	}
+	}*/
 
 	async function handleClick(e) {
 		// Gestionar comprobacion email, identificacion y redireccion
@@ -87,7 +87,7 @@ const Login = () => {
 					<img src={Logo} alt="Logo" />
 				</div>
 				<div style={inputContainer}>
-					<input style={{height: '20px', width: '160px', marginLeft: '5px'}} type="email" data-testid="email-input" placeholder="Correo electrónico" pattern=".+@unizar.es" required value={email} onChange={e => setEmail(e.target.value)} />
+					<input style={{height: '4vh', width: '20vw', marginLeft: '5px'}} type="email" data-testid="email-input" placeholder="Correo electrónico" pattern=".+@unizar.es" required value={email} onChange={e => setEmail(e.target.value)} />
 				</div>
 				<div style={button}>
 					<button onClick={(e) => handleClick(e)} style={{ backgroundColor: "#8BC34A", color: 'whitesmoke', borderRadius: '10px', height: '40px', width: '120px', fontSize:'15px' }}> Login </button>

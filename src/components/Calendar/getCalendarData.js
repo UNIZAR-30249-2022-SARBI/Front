@@ -102,7 +102,6 @@ const getDayInfo = (weekArray) => {
                 type: dayType
             }
         );
-        console.log("WEEKLETTER " + JSON.stringify(weekArray[i]) + " ---  " + type)
 
     }
     return dayInfo;
@@ -119,7 +118,6 @@ const getWeekLetterAndNumber = (weekLetter) => {
         num += Math.round(totalWeekB/WEEK_TOTAL);
         totalWeekB++;
     }
-    console.log("WEEKNUMBER---", weekLetter, num, weekLetter === WEEK_B)
 
     return num;    
 }
@@ -152,11 +150,8 @@ export function getWeekDayByIndex(index) {
 }
 
 const alignFirstWeek = (array) => {
-    console.log("ARRAY---" + JSON.stringify(array))
-
     let firstDay = array[0];
     var calendarArray = [...array]
-    console.log("START--"+ JSON.stringify(firstDay))
     if (firstDay.day != MONDAY) {
         let date = new Date(firstDay.date)
         for (let i = weekDayIndex.get(firstDay.day)-1; 0 <= i ; i--) {
@@ -168,17 +163,14 @@ const alignFirstWeek = (array) => {
                 comment: null,
                 week: ""
             }
-            console.log("START---!"+JSON.stringify(newDate))
             calendarArray.push(newDate)
         }
     }
-    console.log("START--" + JSON.stringify(calendarArray))
 
     return calendarArray;
 }
 
 const alignEndWeek = (array) => {
-    console.log("ARRAY---" + JSON.stringify(array))
 
     let lastDay = array[array.length-1];
     var calendarArray = [...array];
@@ -225,7 +217,6 @@ export const getConvertedData = (array) => {
     firstDayOfQuarter = new Date(firstWeekCalendar[0].date);
     let calendarArray = alignEndWeek(firstWeekCalendar)
     calendarArray.sort(sortByDate);
-    console.log("START--" + JSON.stringify(calendarArray))
 
     weekNumber = 1;
     totalWeekA = 7;
@@ -252,7 +243,6 @@ export const getConvertedData = (array) => {
         );
         firstDayIndex = lastDayIndex;
     }
-    console.log("FINAL-- "+ JSON.stringify(calendarArray))
     return calendarData;
 };
 
@@ -288,7 +278,6 @@ export const getRealWeekNumber = (week) => {
     if (week.charAt(0) == 'a') {
         number--;
     }
-    console.log("WEEKNUMBER--", week, number)
 
     return number;
 }
@@ -345,7 +334,6 @@ export const getBorderStyle = (date, day,type) => {
         }
         if (firstWeek) style += " topBorder"
 
-        console.log("Final---style-- " + thisDate + "   " + firstWeek + "   " + firstDayOfQuarter + "  "+style)
 
     }
     return style;

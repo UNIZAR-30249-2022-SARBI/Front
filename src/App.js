@@ -11,6 +11,7 @@ import Login from './pages/login.js';
 import DataLoad from './pages/dataLoad.js';
 import AdminMenu from './pages/adminMenu.js';
 import CreateCalendar from './pages/createCalendar.js';
+import CreateSchedule from './pages/createSchedule.js';
 
 function App() {
 	return (
@@ -18,10 +19,11 @@ function App() {
     <Router>
 		<Routes>
 			<Route path='/' exact={true} element={<Login/>} />
-			  <Route path='/dataLoad' element={<DataLoad/>}/>
-			  <Route path='/adminMenu' element={<AdminMenu/>}/>
+			<Route path='/dataLoad' element={<DataLoad/>}/>
+			<Route path='/adminMenu' element={<AdminMenu/>}/>
 			<Route path='/' exact={true} element={<Login />} />
-			<Route path='/createCalendar' element={<CreateCalendar/>} />
+			<Route path='/createCalendar' element={<CreateCalendar />} />
+			<Route path='/createSchedule' element={<CreateSchedule />} />
 		</Routes>
 	</Router>
 			</div>

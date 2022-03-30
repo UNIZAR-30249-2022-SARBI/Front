@@ -35,7 +35,7 @@ const title = {
 const row = {
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'space-evenly',
     color: 'black',
     fontSize:'larger'
 };
@@ -82,7 +82,7 @@ const input = {
 }
 
 const body ={
-    padding: '0.5rem calc((100vw - 165vh) / 3)',
+    padding: '2rem calc((100vw - 165vh) / 3)',
 }
 
 const mobileTable = {
@@ -133,6 +133,15 @@ const scrollTitle = {
     fontSize: 'larger'
 }
 
+const formTitle = {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    color: 'black',
+    fontSize: 'larger',
+    marginRight:'10vh'
+}
+
 const buttonRow = {
     display: 'flex',
     flexDirection: 'row',
@@ -143,8 +152,12 @@ const buttonRow = {
 }
 
 const inputAlign = {
+    display: 'flex',
+    flexDirection: 'column',
     fontSize: '2.3vh',
-    overflow:'hidden'
+    overflow: 'hidden',
+    fontFamily: 'Tahoma',
+    padding: '0.6vw'
 }
 
 const dropList = {
@@ -153,12 +166,12 @@ const dropList = {
 }
 
 const Form = () => {
-    const [startFirstQuarter, setStartFirstQuarter] = useState("");
-    const [endFirstQuarter, setEndFirstQuarter] = useState("");
-    const [startSecondQuarter, setStartSecondQuarter] = useState("");
-    const [endSecondQuarter, setEndSecondQuarter] = useState("");
-    const [startSecondConvocatory, setStartSecondConvocatory] = useState("");
-    const [endSecondConvocatory, setEndSecondConvocatory] = useState("");
+    const [startFirstQuarter, setStartFirstQuarter] = useState(new Date('2021-09-15'));
+    const [endFirstQuarter, setEndFirstQuarter] = useState(new Date('2022-02-06'));
+    const [startSecondQuarter, setStartSecondQuarter] = useState(new Date('2022-02-07'));
+    const [endSecondQuarter, setEndSecondQuarter] = useState(new Date('2022-07-22'));
+    const [startSecondConvocatory, setStartSecondConvocatory] = useState(new Date('2022-08-31'));
+    const [endSecondConvocatory, setEndSecondConvocatory] = useState(new Date('2022-09-13'));
     const [festiveList, setFestiveList] = useState([]);
     const [changeDayList, setChangeDayList] = useState([]);
     const [examList, setExamList] = useState([]);
@@ -186,26 +199,17 @@ const Form = () => {
         await getFirstSemester()
         .then(response => {
                 var calendarArray = response;
-               console.log("FIRST----"+JSON.stringify(response))
             setFirstCalendarArray(calendarArray)
-               /* setSecondCalendarArray(getQuarterArray(calendarArray, 2))
-                setThirdCalendarArray(getQuarterArray(calendarArray, 3))*/
         });
         await getSecondSemester()
             .then(response => {
                 var calendarArray = response;
-                console.log("FIRST----" + JSON.stringify(response));
                 setSecondCalendarArray(calendarArray);
-                /* setSecondCalendarArray(getQuarterArray(calendarArray, 2))
-                 setThirdCalendarArray(getQuarterArray(calendarArray, 3))*/
             });
         await getSecondConvocatory()
             .then(response => {
                 var calendarArray = response;
-                console.log("FIRST----" + JSON.stringify(response));
                 setThirdCalendarArray(calendarArray)
-                /* setSecondCalendarArray(getQuarterArray(calendarArray, 2))
-                 setThirdCalendarArray(getQuarterArray(calendarArray, 3))*/
             });
 
     }
@@ -254,12 +258,12 @@ const Form = () => {
 
     async function saveQuarters() {
         let quarters = {
-            startFirstQuarter: addOneDay(startFirstQuarter),
-            endFirstQuarter: addOneDay(endFirstQuarter),
-            startSecondQuarter: addOneDay(startSecondQuarter),
-            endSecondQuarter: addOneDay(endSecondQuarter),
-            startSecondConvocatory: addOneDay(startSecondConvocatory),
-            endSecondConvocatory: addOneDay(endSecondConvocatory)
+            startFirstQuarter: startFirstQuarter,
+            endFirstQuarter: endFirstQuarter,
+            startSecondQuarter: startSecondQuarter,
+            endSecondQuarter: endSecondQuarter,
+            startSecondConvocatory: startSecondConvocatory,
+            endSecondConvocatory: endSecondConvocatory
         }
         await createYearCalendar(quarters)
           .then(response=>{
@@ -273,7 +277,7 @@ const Form = () => {
     }
 
     //---Scrollable lists
-    const scrollFestive = useRef(null);
+   /* const scrollFestive = useRef(null);
     const scrollExam = useRef(null);
     const scrollChange = useRef(null);
     function scrollToBottom(scroll) {
@@ -282,10 +286,13 @@ const Form = () => {
 
     }
     useEffect(() => {
-        scrollToBottom(scrollFestive)
-        scrollToBottom(scrollExam)
+        if (firstCalendarArray.length > 0) {
+            scrollToBottom(scrollFestive);
+            scrollToBottom(scrollExam)
+        }
+
       //  scrollToBottom(scrollChange)
-    });
+    });*/
 
     //---FestiveList functions
     const setFestiveStartDate = (i, startDate) => {
@@ -500,7 +507,7 @@ const Form = () => {
             html2canvas(input)
                 .then((canvas) => {
                     let imgWidth = 200;
-                    let imgHeight = 340;
+                    let imgHeight = 320;
                     const year = getStartYear();
                     const imgData = canvas.toDataURL('img/png');
                     const pdf = new jsPDF('p', 'mm', 'a4');
@@ -514,37 +521,12 @@ const Form = () => {
         <div style={body}>
             <div style={title}>
                 <h1>Calendario Anual</h1>
-                {/*<FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
-                    <InputLabel id="demo-simple-select-standard-label">Age</InputLabel>
-                    <Select
-                        labelId="demo-simple-select-standard-label"
-                        id="demo-simple-select-standard"
-                        value={age}
-                        onChange={handleChange}
-                        label="Age"
-                    >
-                        <MenuItem value="">
-                            <em>None</em>
-                        </MenuItem>
-                        <MenuItem value={10}>Ten</MenuItem>
-                        <MenuItem value={20}>Twenty</MenuItem>
-                        <MenuItem value={30}>Thirty</MenuItem>
-                    </Select>
-                </FormControl>
-                <LocalizationProvider dateAdapter={AdapterDateFns}>
-
-                <DesktopDatePicker
-                    label="Date desktop"
-                    inputFormat="MM/dd/yyyy"
-                    value={value}
-                    onChange={handleChangeDate}
-                    renderInput={(params) => <TextField {...params} />}
-                    />
-                </LocalizationProvider>
-                */}
             </div>
+            <div >
+            {firstCalendarArray.length > 0 ? null:
+            <div>
             <div style={row}>
-                <label>Primer cuatrimestre</label>
+                <label style={formTitle}>Primer cuatrimestre</label>
                 <pre style={date}>
                     <pre style={inputAlign}>
                         <DatePicker id="1" selected={startFirstQuarter}
@@ -565,7 +547,7 @@ const Form = () => {
             </div>
             <br/>
             <div style={row}>
-                <label>Segundo cuatrimestre</label>
+                <label style={formTitle}>Segundo cuatrimestre</label>
                 <pre style={date}>
                     <pre style={inputAlign}>
                         <DatePicker selected={startSecondQuarter}
@@ -585,7 +567,7 @@ const Form = () => {
                 </pre>
             </div>
             <div style={row}>
-                <label>Segunda convocatoria</label>
+                <label style={formTitle}>Segunda convocatoria</label>
                 <pre style={date}>
                     <pre style={inputAlign}>
                         <DatePicker selected={startSecondConvocatory}
@@ -604,6 +586,9 @@ const Form = () => {
                     </pre>
                 </pre>
             </div>
+        </div>
+            }
+            {false ? <div >
             <div style={scrollTitle}>
                 <label>Festivos</label>
                 <button style={add} onClick={addFestive}>+</button>
@@ -629,17 +614,22 @@ const Form = () => {
                 {examLabel}
             </div>
             <br/>
-            <br/>
-            <div style={buttonRow}>
-                <button onClick={savePdf} style={gen}>Exportar a PDF</button>
-                {firstCalendarArray.length <= 0 ? <button onClick={() => saveQuarters()} style={gen}>Generar</button> :
-                        <button onClick={() => saveCalendar()} style={gen}>Modificar</button>
-                }
-                {firstCalendarArray.length > 0 ? <button onClick={() => deleteCalendar()} style={gen}>Eliminar</button> :null}
+                <br />
+            </div > : null}
+
+            <CalendarRender/>
             </div>
             <br />
-            <CalendarRender/>
+
+            <div style={buttonRow}>
+                {firstCalendarArray.length > 0 ? <button onClick={savePdf} style={gen}>Exportar a PDF</button> : null}
+                {firstCalendarArray.length <= 0 ? <button onClick={() => saveQuarters()} style={gen}>Generar</button> :
+                    null
+                }
+                {firstCalendarArray.length > 0 ? <button onClick={() => deleteCalendar()} style={gen}>Eliminar</button> : null}
+            </div>
         </div>
+
     )
 }
 
