@@ -5,9 +5,10 @@
     "\\src\\api",
     "\\src\\assets",
     "\\src\\components",
+    "\\src\\components\\Calendar",
     "\\src\\pages",
     "\\src\\utils"
   ],
-  "SelectedNode": "\\src\\api\\user.js",
+  "SelectedNode": "\\src\\pages\\createCalendar.js",
   "PreviewInSolutionExplorer": false
 }

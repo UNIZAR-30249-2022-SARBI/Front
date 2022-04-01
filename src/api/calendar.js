@@ -5,12 +5,16 @@ const url = 'http://localhost:3001/';
 export function createYearCalendar(periods) {
 
     return axios.post(url + 'createCalendarEINA', {
-        startFirstSemester: periods.startFirstQuarter,
-        endFirstSemester: periods.endFirstQuarter,
-        startSecondSemester: periods.startSecondQuarter,
-        endSecondSemester: periods.endSecondQuarter,
-        startSecondConvocatory: periods.startSecondConvocatory,
-        endSecondConvocatory: periods.endSecondConvocatory
+        periods: {
+            startFirstSemester: periods.startFirstQuarter,
+            endFirstSemester: periods.endFirstQuarter,
+            startSecondSemester: periods.startSecondQuarter,
+            endSecondSemester: periods.endSecondQuarter,
+            startSecondConvocatory: periods.startSecondConvocatory,
+            endSecondConvocatory: periods.endSecondConvocatory
+        },
+        course: '2021-22',
+        version:1
     })
         .then(async (response) => {
             console.log(response);
@@ -20,7 +24,8 @@ export function createYearCalendar(periods) {
 
 export function getFirstSemester() {
     return axios.post(url + 'listFirstSemesterCalendarEINA', {
-        year: 2021,
+        course: '2021-22',
+        version: 1
     })
         .then(async (response) => {
             return response.data;
@@ -28,7 +33,8 @@ export function getFirstSemester() {
 }
 export function getSecondSemester() {
     return axios.post(url + 'listSecondSemesterCalendarEINA', {
-        year: 2021,
+        course: '2021-22',
+        version: 1
     })
         .then(async (response) => {
             return response.data;
@@ -36,7 +42,8 @@ export function getSecondSemester() {
 }
 export function getSecondConvocatory() {
     return axios.post(url + 'listSecondConvocatoryCalendarEINA', {
-        year: 2021,
+        course: '2021-22',
+        version: 1
     })
         .then(async (response) => {
             return response.data;
@@ -45,7 +52,8 @@ export function getSecondConvocatory() {
 export function deleteCalendarEINA() {
     console.log(' deleting')
     return axios.post(url + 'deleteCalendarEINA', {
-        year: 2021,
+        course: '2021-22',
+        version: 1
     })
         .then(async (response) => {
             return response;
@@ -54,11 +62,15 @@ export function deleteCalendarEINA() {
 export function editDayEINA(dayEINA) {
     console.log(' editDayEINA');
     return axios.post(url + 'editDayEINA', {
-        date: dayEINA.date,
-        day: dayEINA.day,
-        week: dayEINA.week,
-        type: dayEINA.type,
-        comment: dayEINA.comment,
+        dayData: {
+            date: dayEINA.date,
+            day: dayEINA.day,
+            week: dayEINA.week,
+            type: dayEINA.type,
+            comment: dayEINA.comment,
+        },
+        course: '2021-22',
+        version: 1
     })
         .then(async (response) => {
             return response;
