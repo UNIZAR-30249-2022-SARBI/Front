@@ -3,6 +3,8 @@ import { useState, useEffect, useRef } from "react";
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import CalendarTable from '../components/Calendar/calendar';
+import CalendarForm from '../components/Calendar/calendarForm';
+
 import LegendHeader from '../components/Calendar/legendHeader';
 import { Dropdown, DropdownButton } from 'react-bootstrap';
 import "../components/Calendar/calendar.css";
@@ -12,14 +14,17 @@ import {
 import axios from 'axios';
 import { jsPDF } from "jspdf";
 import html2canvas from 'html2canvas';
-/*import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
-import DesktopDatePicker from '@mui/lab/DesktopDatePicker';
-import TextField from '@mui/material/TextField';
-import AdapterDateFns from '@mui/lab/AdapterDateFns';
-import LocalizationProvider from '@mui/lab/LocalizationProvider';*/
+
+import { LocalizationProvider, DesktopDatePicker } from '@mui/lab';
+import FormLabel from "@material-ui/core/FormLabel";
+
+import {
+    InputLabel, Typography, MenuItem, FormControl, TextField, Select,
+    Accordion, AccordionSummary, AccordionDetails
+} from '@mui/material';
+
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+
 import { getFirstSemester, deleteCalendarEINA, createYearCalendar, getSecondSemester, getSecondConvocatory } from '../api/calendar';
 
 const baseUrl = 'http://localhost:8080'
@@ -66,15 +71,7 @@ const add = {
     fontSize: 'larger'
 }
 
-const gen = {
-    alignItems: 'center', 
-    justifyContent: 'center', 
-    backgroundColor: "#685cf4", 
-    color: 'whitesmoke', 
-    borderRadius: '1vh',
-    padding: '0.3vh 0.6vh'
 
-}
 
 const input = {
     height: '4vh',
@@ -139,7 +136,6 @@ const formTitle = {
     justifyContent: 'center',
     color: 'black',
     fontSize: 'larger',
-    marginRight:'10vh'
 }
 
 const buttonRow = {
@@ -155,9 +151,9 @@ const inputAlign = {
     display: 'flex',
     flexDirection: 'column',
     fontSize: '2.3vh',
-    overflow: 'hidden',
     fontFamily: 'Tahoma',
-    padding: '0.6vw'
+    justifyContent: 'space-evenly',
+
 }
 
 const dropList = {
@@ -166,12 +162,7 @@ const dropList = {
 }
 
 const Form = () => {
-    const [startFirstQuarter, setStartFirstQuarter] = useState(new Date('2021-09-15'));
-    const [endFirstQuarter, setEndFirstQuarter] = useState(new Date('2022-02-06'));
-    const [startSecondQuarter, setStartSecondQuarter] = useState(new Date('2022-02-07'));
-    const [endSecondQuarter, setEndSecondQuarter] = useState(new Date('2022-07-22'));
-    const [startSecondConvocatory, setStartSecondConvocatory] = useState(new Date('2022-08-31'));
-    const [endSecondConvocatory, setEndSecondConvocatory] = useState(new Date('2022-09-13'));
+ 
     const [festiveList, setFestiveList] = useState([]);
     const [changeDayList, setChangeDayList] = useState([]);
     const [examList, setExamList] = useState([]);
@@ -256,25 +247,7 @@ const Form = () => {
         await fetchCalendar()
     }
 
-    async function saveQuarters() {
-        let quarters = {
-            startFirstQuarter: startFirstQuarter,
-            endFirstQuarter: endFirstQuarter,
-            startSecondQuarter: startSecondQuarter,
-            endSecondQuarter: endSecondQuarter,
-            startSecondConvocatory: startSecondConvocatory,
-            endSecondConvocatory: endSecondConvocatory
-        }
-        await createYearCalendar(quarters)
-          .then(response=>{
-            if (!response.data) {
-              //error
-            } else {
-              //éxito
-            }
-          })
-        await fetchCalendar()
-    }
+ 
 
     //---Scrollable lists
    /* const scrollFestive = useRef(null);
@@ -520,73 +493,23 @@ const Form = () => {
     return(
         <div style={body}>
             <div style={title}>
-                <h1>Calendario Anual</h1>
+                <h1>Calendario Anual</h1>                
             </div>
             <div >
-            {firstCalendarArray.length > 0 ? null:
-            <div>
-            <div style={row}>
-                <label style={formTitle}>Primer cuatrimestre</label>
-                <pre style={date}>
-                    <pre style={inputAlign}>
-                        <DatePicker id="1" selected={startFirstQuarter}
-                            onChange={(date) => setStartFirstQuarter(date)}
-                            dateFormat="dd/MM/yyyy"
-                            placeholderText="Inicio"
-                        />
-                    </pre>
-                    <pre style={inputAlign}> - </pre>
-                    <pre style={inputAlign}>
-                        <DatePicker selected={endFirstQuarter}
-                            onChange={(date) => setEndFirstQuarter(date)}
-                            dateFormat="dd/MM/yyyy"
-                            placeholderText="Fin"
-                        />
-                    </pre>
-                </pre>
-            </div>
-            <br/>
-            <div style={row}>
-                <label style={formTitle}>Segundo cuatrimestre</label>
-                <pre style={date}>
-                    <pre style={inputAlign}>
-                        <DatePicker selected={startSecondQuarter}
-                            onChange={(date) => setStartSecondQuarter(date)}
-                            dateFormat="dd/MM/yyyy"
-                            placeholderText="Inicio"
-                        /> 
-                    </pre>
-                    <pre style={inputAlign}> - </pre>
-                    <pre style={inputAlign}>
-                        <DatePicker selected={endSecondQuarter}
-                            onChange={(date) => setEndSecondQuarter(date)}
-                            dateFormat="dd/MM/yyyy"
-                            placeholderText="Fin"
-                        />
-                    </pre>
-                </pre>
-            </div>
-            <div style={row}>
-                <label style={formTitle}>Segunda convocatoria</label>
-                <pre style={date}>
-                    <pre style={inputAlign}>
-                        <DatePicker selected={startSecondConvocatory}
-                            onChange={(date) => setStartSecondConvocatory(date)}
-                            dateFormat="dd/MM/yyyy"
-                            placeholderText="Inicio"
-                        />
-                    </pre>
-                    <pre style={inputAlign}> - </pre>
-                    <pre style={inputAlign}>
-                        <DatePicker selected={endSecondConvocatory}
-                            onChange={(date) => setEndSecondConvocatory(date)}
-                            dateFormat="dd/MM/yyyy"
-                            placeholderText="Fin"
-                        />
-                    </pre>
-                </pre>
-            </div>
-        </div>
+                {firstCalendarArray.length > 0 ? null :
+                      <Accordion>
+                    <AccordionSummary
+                        expandIcon={<ExpandMoreIcon />}
+                        aria-controls="panel1a-content"
+                        id="panel1a-header"
+                    >
+                        <Typography>Cambiar fechas de períodos </Typography>
+                    </AccordionSummary>
+                    <AccordionDetails>
+                            <CalendarForm option={1}/>
+                    </AccordionDetails>
+                </Accordion>
+            
             }
             {false ? <div >
             <div style={scrollTitle}>
@@ -623,9 +546,7 @@ const Form = () => {
 
             <div style={buttonRow}>
                 {firstCalendarArray.length > 0 ? <button onClick={savePdf} style={gen}>Exportar a PDF</button> : null}
-                {firstCalendarArray.length <= 0 ? <button onClick={() => saveQuarters()} style={gen}>Generar</button> :
-                    null
-                }
+               
                 {firstCalendarArray.length > 0 ? <button onClick={() => deleteCalendar()} style={gen}>Eliminar</button> : null}
             </div>
         </div>

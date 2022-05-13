@@ -19,7 +19,7 @@ export function createYearCalendar(periods) {
         .then(async (response) => {
             console.log(response);
             return response;
-        })
+        }) 
 }
 
 export function getFirstSemester() {

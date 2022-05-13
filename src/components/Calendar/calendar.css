@@ -194,3 +194,29 @@
     font-family: Tahoma;
     font-size: small;
 }
+
+.inputAlign {
+    display:flex;
+    flex-direction: row;
+    justify-content:space-between;
+    width:50vw;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid black;
+    padding: 10vh;
+}
+.buttonAlign {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.genButton {
+    background-color: #685cf4;
+    color: whitesmoke;
+    border-radius: 1vh;
+    padding: 0.3vh 0.6vh;
+}
+
