@@ -2,65 +2,112 @@ import axios from 'axios';
 
 const url = 'http://localhost:3001/';
 
-export function createYearCalendar(periods) {
-
+export function createYearCalendar(periods, course, version) {
     return axios.post(url + 'createCalendarEINA', {
         periods: {
-            startFirstSemester: periods.startFirstQuarter,
-            endFirstSemester: periods.endFirstQuarter,
-            startSecondSemester: periods.startSecondQuarter,
-            endSecondSemester: periods.endSecondQuarter,
-            startSecondConvocatory: periods.startSecondConvocatory,
-            endSecondConvocatory: periods.endSecondConvocatory
+            firstSemester: {
+                startDate: periods.startFirstQuarter,
+                endDate: periods.endFirstQuarter
+            },
+            secondSemester: {
+                startDate: periods.startSecondQuarter,
+                endDate: periods.endSecondQuarter,
+            },
+            secondConvocatory: {
+                startDate: periods.startSecondConvocatory,
+                endDate: periods.endSecondConvocatory,
+            }
         },
-        course: '2021-22',
-        version:1
+        course: course,
+        version: version
     })
         .then(async (response) => {
-            console.log(response);
             return response;
         }) 
 }
 
-export function getFirstSemester() {
-    return axios.post(url + 'listFirstSemesterCalendarEINA', {
-        course: '2021-22',
-        version: 1
-    })
-        .then(async (response) => {
-            return response.data;
-        });
-}
-export function getSecondSemester() {
-    return axios.post(url + 'listSecondSemesterCalendarEINA', {
-        course: '2021-22',
-        version: 1
-    })
-        .then(async (response) => {
-            return response.data;
-        });
-}
-export function getSecondConvocatory() {
-    return axios.post(url + 'listSecondConvocatoryCalendarEINA', {
-        course: '2021-22',
-        version: 1
-    })
-        .then(async (response) => {
-            return response.data;
-        });
-}
-export function deleteCalendarEINA() {
-    console.log(' deleting')
-    return axios.post(url + 'deleteCalendarEINA', {
-        course: '2021-22',
-        version: 1
+export function editCalendar(periods, course, version) {
+    return axios.post(url + 'editCalendarEINA', {
+        course: course,
+        version: version,
+        periods: {
+            firstSemester: {
+                startDate: periods.startFirstQuarter,
+                endDate: periods.endFirstQuarter
+            },
+            secondSemester: {
+                startDate: periods.startSecondQuarter,
+                endDate: periods.endSecondQuarter,
+            },
+            secondConvocatory: {
+                startDate: periods.startSecondConvocatory,
+                endDate: periods.endSecondConvocatory,
+            }
+        },
     })
         .then(async (response) => {
             return response;
         });
 }
-export function editDayEINA(dayEINA) {
-    console.log(' editDayEINA');
+
+export function createEmptyCalendar(course, version) {
+
+    return axios.post(url + 'createCalendarEINA', {
+        course: course,
+        version: version
+    })
+        .then(async (response) => {
+            if(response.data) await deleteCalendarEINA(course, version)
+            return response.data;
+        });
+}
+
+export function getCalendars() {
+    return axios.get(url + 'listAllCalendars')
+        .then(async (response) => {
+            return response.data;
+        });
+}
+
+export function getPeriods(course, version) {
+    return axios.get(url + 'listPeriodsCalendarEINA/'+course+"/"+version)
+        .then(async (response) => {
+            return response.data;
+        });
+}
+
+export function getFirstSemester(course, version) {
+    return axios.get(url + 'listFirstSemesterCalendarEINA/' + course + "/" + version)
+        .then(async (response) => {
+            return response.data;
+        });
+}
+
+export function getSecondSemester(course, version) {
+    return axios.get(url + 'listSecondSemesterCalendarEINA/' + course + "/" + version)
+        .then(async (response) => {
+            return response.data;
+        });
+}
+
+export function getSecondConvocatory(course, version) {
+    return axios.get(url + 'listSecondConvocatoryCalendarEINA/' + course + "/" + version)
+        .then(async (response) => {
+            return response.data;
+        });
+}
+
+export function deleteCalendarEINA(course, version) {
+    return axios.post(url + 'deleteCalendarEINA', {
+        course: course,
+        version: version
+    })
+        .then(async (response) => {
+            return response;
+        });
+}
+
+export function editDayEINA(dayEINA, course, version) {
     return axios.post(url + 'editDayEINA', {
         dayData: {
             date: dayEINA.date,
@@ -69,8 +116,8 @@ export function editDayEINA(dayEINA) {
             type: dayEINA.type,
             comment: dayEINA.comment,
         },
-        course: '2021-22',
-        version: 1
+        course: course,
+        version: version
     })
         .then(async (response) => {
             return response;

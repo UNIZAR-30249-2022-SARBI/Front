@@ -1,4 +1,4 @@
-﻿/* eslint-disable */
+/* eslint-disable */
 import { React, useState } from "react";
 import "./calendar.css";
 import {
@@ -13,7 +13,6 @@ import { Dropdown, DropdownButton } from 'react-bootstrap';
 import { Button, Modal } from '@material-ui/core';
 import { editDayEINA } from '../../api/calendar';
 
-const baseUrl = 'http://localhost:8080'
 
 const useStyles = makeStyles((theme) => ({
     modal: {
@@ -29,7 +28,6 @@ const useStyles = makeStyles((theme) => ({
         transform: 'translate(-50%, -50%)',
         borderStyle: 'outset',
         borderRadius: '1vh',
-
     },
     iconos: {
         cursor: 'pointer'
@@ -37,7 +35,6 @@ const useStyles = makeStyles((theme) => ({
     inputMaterial: {
         width: '100%'
     },
-
     input: {
         height: '4vh',
         width: '40vh',
@@ -45,10 +42,9 @@ const useStyles = makeStyles((theme) => ({
         flexDirection: 'row',
         justifyContent: 'center',
     }
-
 }));
 
-const CalendarTable = ({ calendarArray, editable, enableHeader, fetchCalendar }) => {
+const CalendarTable = ({ calendarArray, editable, enableHeader, fetchCalendar, course, version}) => {
     const styles = useStyles();
     const [changeModal, setChangeModal] = useState(false);
     const [changeDate, setChangeDate] = useState("09/12/2021");
@@ -77,10 +73,12 @@ const CalendarTable = ({ calendarArray, editable, enableHeader, fetchCalendar })
                 return NORMAL
         }
     }
+
     const getUTCDate = (d) => {
         const date = new Date(d).toISOString().substring(0, 10);
         return date;
     }
+
     const openModal = (date) => {
         let dateInfo = calendarArray.find(d => d.date == date)
         setChangeDayInfo(dateInfo)
@@ -127,12 +125,14 @@ const CalendarTable = ({ calendarArray, editable, enableHeader, fetchCalendar })
         else
             return getWeekConst(changeDateComment);
     }
+
     const getWeekLetter = () => {
         if (changeDateOption === NORMAL)
             return "";
         else
             return changeDateOption;
     }
+
     const saveModal = async () => {
         let date = new Date(new Date(changeDate).getTime())
         let dateInfo = {
@@ -142,15 +142,14 @@ const CalendarTable = ({ calendarArray, editable, enableHeader, fetchCalendar })
             comment: changeDateComment,
             week: getWeekLetter()
         };
-        await editDayEINA(dateInfo)
-        .then(response=>{
+        await editDayEINA(dateInfo, course,version)
+        .then(async response=>{
             if (!response.data){
             //error
             } else {
-            //éxito
+                await fetchCalendar();
             }
         })
-        await fetchCalendar();
         toggleModal();
     };
 
@@ -162,11 +161,10 @@ const CalendarTable = ({ calendarArray, editable, enableHeader, fetchCalendar })
                 <div class="modalRow">
                     <p class="modalTitle">Cambiar a </p>
                     <div class="modalOption">
-
-                    <DropdownButton id="dropdown-item-button" title={changeDateComment} variant="light">
-                        {changeDayOptions.map((option) => (
-                            <Dropdown.Item as="button" onClick={(option) => setChangeDateComment(option.target.innerText)}>{option}</Dropdown.Item>))}
-                        </DropdownButton>
+                        <DropdownButton id="dropdown-item-button" title={changeDateComment} variant="light">
+                            {changeDayOptions.map((option) => (
+                                <Dropdown.Item as="button" onClick={(option) => setChangeDateComment(option.target.innerText)}>{option}</Dropdown.Item>))}
+                            </DropdownButton>
                     </div>
                 </div>)
         else if (changeDateType == EVALUACION)
@@ -174,7 +172,6 @@ const CalendarTable = ({ calendarArray, editable, enableHeader, fetchCalendar })
                 <div class="modalRow">
                     <p class="modalTitle">Tipo de evaluación </p>
                     <div class="modalOption">
-
                      <DropdownButton id="dropdown-item-button" title={changeDateComment} variant="light">
                         {examOptions.map((option) => (
                             <Dropdown.Item as="button" onClick={(option) => setChangeDateComment(option.target.innerText)}>{option}</Dropdown.Item>))}
@@ -182,11 +179,10 @@ const CalendarTable = ({ calendarArray, editable, enableHeader, fetchCalendar })
                     </div>
                 </div>
             )
-            else 
+        else 
             return (
                 <input type="text" className={styles.input} value={changeDateComment} placeholder="Descripción"
                     onChange={(comment) => setChangeDateComment(comment.target.value)} />);
-
     }
 
     const modal = (
@@ -195,20 +191,19 @@ const CalendarTable = ({ calendarArray, editable, enableHeader, fetchCalendar })
             <div class="modalRow">
                 <p class="modalTitle">Semana</p>
                 <div class="modalOption">
-                <DropdownButton id="dropdown-item-button" title={changeDateOption} variant="light">
-                    {changeWeekOptions.map((option) => (
-                        <Dropdown.Item as="button" onClick={(option) => setChangeDateOption(option.target.innerText)}>{option}</Dropdown.Item>))}
-                    </DropdownButton>
-                    </div>
+                    <DropdownButton id="dropdown-item-button" title={changeDateOption} variant="light">
+                        {changeWeekOptions.map((option) => (
+                            <Dropdown.Item as="button" onClick={(option) => setChangeDateOption(option.target.innerText)}>{option}</Dropdown.Item>))}
+                        </DropdownButton>
+                </div>
             </div>
             <div class="modalRow">
                 <p class="modalTitle">Tipo</p>
                 <div class="modalOption">
-
-                <DropdownButton id="dropdown-item-button" title={changeDateType} variant="light">
-                    {typeOptions.map((option) => (
-                        <Dropdown.Item as="button" onClick={(option) => { setChangeDateType(option.target.innerText); setChangeDateComment("")}}>{option}</Dropdown.Item>))}
-                    </DropdownButton>
+                    <DropdownButton id="dropdown-item-button" title={changeDateType} variant="light">
+                        {typeOptions.map((option) => (
+                            <Dropdown.Item as="button" onClick={(option) => { setChangeDateType(option.target.innerText); setChangeDateComment("")}}>{option}</Dropdown.Item>))}
+                        </DropdownButton>
                 </div>
             </div>
             {modalTypeInput()}
@@ -233,10 +228,9 @@ const CalendarTable = ({ calendarArray, editable, enableHeader, fetchCalendar })
                     getBorderStyle(actualDay.date, actualDay.day, actualDay.type);
                 if (actualDay.type == NO_SCHOOL)
                     return <td class={styleClass} key={i} />;
-
                
                 if (actualDay.day == SUNDAY || actualDay.day == SATURDAY) {
-                    return <td class={styleClass} style={{ backgroundColor: color }} key={day + 2}>
+                    return <td class={styleClass} style={{ backgroundColor: color, cursor: 'pointer'  }} key={day + 2} onClick={() => openModal(actualDay.date)}>
                         <pre> {dateValue}</pre>
                     </td>;
                 } else if (actualDay.week!=null && !actualDay.week.includes(WEEK_A) && !actualDay.week.includes(WEEK_B)){
@@ -254,7 +248,7 @@ const CalendarTable = ({ calendarArray, editable, enableHeader, fetchCalendar })
                         return <td class={styleClass} style={{ backgroundColor: color, cursor: 'pointer' }} key={day + 2} onClick={() => openModal(actualDay.date)}>
                             <pre> {dateValue} {actualDay.day}{actualDay.week}  {actualDay.day}{getRealWeekNumber(actualDay.week)}</pre>
                         </td>;
-                else
+                 else
                     return <td class={styleClass} style={{ backgroundColor: color}} key={day + 2}>
                         <pre> {dateValue} {actualDay.day}{actualDay.week}  {actualDay.day}{getRealWeekNumber(actualDay.week)}</pre>
                     </td>; 
@@ -295,28 +289,27 @@ const CalendarTable = ({ calendarArray, editable, enableHeader, fetchCalendar })
     });
 
     return (
-            <div class="calendarRow">
-            {calendarArray.length > 0 ?
-                <div>
-                    <table class="calendarTable">
-                         <thead>
-                            <tr>
-                                {enableHeader ? <th class="header">{getStartYear()}</th> : null}
-                                {getWeekHeader(enableHeader)}
-                            </tr>
-                        </thead>
-                        {tBodies}
-                    </table>
-                </div>
-                : null}
-                <Modal
-                        open={changeModal}
-                        onClose={toggleModal}>
-                        {modal}
-                </Modal>
-
-                <div> {legendsList} </div>
+        <div class="calendarRow">
+        {calendarArray.length > 0 ?
+            <div>
+                <table class="calendarTable">
+                    <thead>
+                        <tr>
+                            {enableHeader ? <th class="header">{getStartYear()}</th> : null}
+                            {getWeekHeader(enableHeader)}
+                        </tr>
+                    </thead>
+                    {tBodies}
+                </table>
             </div>
+            : null}
+            <Modal
+                open={changeModal}
+                onClose={toggleModal}>
+                {modal}
+            </Modal>
+            <div> {legendsList} </div>
+        </div>
     );
 };
 

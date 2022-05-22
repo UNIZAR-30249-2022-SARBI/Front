@@ -1,39 +1,39 @@
 import React from 'react';
-import { useNavigate } from "react-router-dom";
-import 'bootstrap/dist/css/bootstrap.css';
-import Dropdown from 'react-bootstrap/Dropdown';
 import { useEffect, useState } from 'react';
 import Logo from '../assets/Logo.png';
+import 'bootstrap/dist/css/bootstrap.css';
+import { useNavigate } from "react-router-dom";
+import Dropdown from 'react-bootstrap/Dropdown';
 import { ReactSession } from 'react-client-session';
 
 const row = {
-  display: 'flex',
-  flexDirection: 'row',
-  marginTop: '2vh',
-  alignItems: 'center',
-  justifyContent: 'center',
-  color: 'white',
-  borderRadius: '5px'
+    display: 'flex',
+    flexDirection: 'row',
+    marginTop: '2vh',
+    alignItems: 'center',
+    justifyContent: 'center',
+    color: 'white',
+    borderRadius: '5px'
 };
 
 const column = {
-  display: 'flex',
-  flexDirection: 'column',
-  marginBottom: '5%',
-  alignItems: 'center',
-  marginLeft: '15%',
-  marginRight: '15%',
+    display: 'flex',
+    flexDirection: 'column',
+    marginBottom: '5%',
+    alignItems: 'center',
+    marginLeft: '15%',
+    marginRight: '15%',
 };
 
 const logo = {
     display: 'flex',
     flexDirection: 'row',
-  justifyContent: 'center',
-  alignItems: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
     marginLeft: '-1450px',
     marginTop: '2vh',
-  width: '1px',
-  height: '1px'
+    width: '1px',
+    height: '1px'
 };
 
 const AdminMenu = () => {

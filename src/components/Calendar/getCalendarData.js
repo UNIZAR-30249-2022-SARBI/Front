@@ -63,10 +63,11 @@ function getDifferenceInDays(start, end) {
 const addLegend = (day) => {
     let arrayComment = day.comment;
     if (arrayComment?.length > 0) {
-        arrayComment.forEach(comment => {
+        arrayComment.forEach(c => {
             let d = new Date(day.date);
+            let comment = c
             let formatDate = d.getDate() + "/" + (d.getMonth() + 1) + "/" + d.getFullYear().toString().substr(-2);
-
+            if(day.type===CHANGE_DAY) comment = c + " " + d.getDate() + "/" + (d.getMonth()+1)
             if (legendList.get(comment) == null) {
                 legendList.set(comment, [day.type, formatDate]);
             } else {
@@ -359,7 +360,7 @@ export const getWeekHeader = (enable) => {
                 </th>);
             else 
                 return (<th key={i}>
-                    <preHeader>{day}<div class="whiteLetter">{countByWeekDay[i - 1]}</div></preHeader>
+                    <preheader>{day}<div class="whiteLetter">{countByWeekDay[i - 1]}</div></preheader>
                 </th>);
         });
     else

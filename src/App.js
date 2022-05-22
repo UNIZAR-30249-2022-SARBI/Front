@@ -11,6 +11,7 @@ import Login from './pages/login.js';
 import DataLoad from './pages/dataLoad.js';
 import AdminMenu from './pages/adminMenu.js';
 import CreateCalendar from './pages/createCalendar.js';
+import ModifyCalendar from './pages/modifyCalendar.js';
 import CreateSchedule from './pages/createSchedule.js';
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
 			<Route path='/adminMenu' element={<AdminMenu/>}/>
 			<Route path='/' exact={true} element={<Login />} />
 			<Route path='/createCalendar' element={<CreateCalendar />} />
+			<Route path='/modifyCalendar/:course/:version' element={<ModifyCalendar />} />
 			<Route path='/createSchedule' element={<CreateSchedule />} />
 		</Routes>
 	</Router>
