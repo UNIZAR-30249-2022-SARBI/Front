@@ -60,14 +60,19 @@ const Login = () => {
 	async function handleClick(e) {
 		// Gestionar comprobacion email, identificacion y redireccion
 		e.preventDefault();
-		let loginInfo = {
-			email: email,
-		}
 		if(!validateEmail(email)){
 			alert("El email no pertenece a la universidad de Zaragoza");
-		}else{
-			ReactSession.set("email", email);
-			history("/adminMenu");
+		} else {
+			await login(email)
+				.then(response => {
+					if (response) {
+						ReactSession.set("email", email);
+						if(response.isAdmin)
+							history("/adminMenu");
+						else
+							history("/adminMenu")
+                    }
+				});
 		}
 	
 	};
