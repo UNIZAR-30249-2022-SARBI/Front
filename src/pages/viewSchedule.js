@@ -47,7 +47,7 @@ const drop = {
 }
 
 
-const CreateSchedule = () => {
+const ViewSchedule = () => {
     const [career, setCareer] = useState('');
     const [course, setCourse] = useState('');
     const [group, setGroup] = useState('');
@@ -134,14 +134,10 @@ const CreateSchedule = () => {
                 </div>
             </div>
 
-            <div className="row">
-                <Button variant="contained" onClick={showValues}>Generar</Button>
-            </div>
-
             <CustomSchedule />
 
         </div>
     )
 }
 
-export default CreateSchedule
+export default ViewSchedule
