@@ -2,6 +2,13 @@ import axios from 'axios';
 
 const url = 'http://localhost:3001/';
 
+export function getTeachingGroups(code, period) {
+    return axios.get(url + 'listAllTeachingGroups')
+        .then(async (response) => {
+            return response.data;
+        });
+}
+
 export function createSchedule(groupType, groupNumber, career, course, code, period, subjectIds, scheduleSlots) {
     return axios.post(url + 'createSchedule', {
         groupType: groupType,

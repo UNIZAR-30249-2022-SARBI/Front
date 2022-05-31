@@ -9,6 +9,7 @@ import { Alert } from 'react-alert'
 import { Dropdown, DropdownButton } from 'react-bootstrap';
 import Logo from '../assets/Logo.png';
 import { ReactSession } from 'react-client-session';
+import { upload } from '../api/subject';
 
 const column = {
     display: 'flex',
@@ -70,6 +71,7 @@ const DataLoad = () => {
         readFile(selectedFile)        
         .then((readedData) => {            
             setInitialData(readedData)
+            console.log(readedData)
             })
         .catch((error) => console.error(error));
     };
@@ -80,24 +82,19 @@ const DataLoad = () => {
         var formData = new FormData();
 
         formData.append("file", file);        
-
+        console.log("form");
+        console.log(formData)
         /*if (selectedFileDropdown == "Aulas") {
             baseUrl = "http://localhost:8080/aulas/uploadAula"
         } else {
             baseUrl = "http://localhost:8080/asignaturas/upload"
         }*/
-        await axios.post(baseUrl,
-            formData, {
-                headers: {
-               'Content-Type': 'multipart/form-data'
-                }
-            })
+        await upload(formData)
            .then(response => {
                if (!response.data) {
                    alert("Se ha producido un error, inténtelo de nuevo.")
                } else {
                     alert("Archivo subido con éxito.")
-                                   
                }                           
             }).catch(error =>{
                alert("Se ha producido un error, inténtelo de nuevo.")

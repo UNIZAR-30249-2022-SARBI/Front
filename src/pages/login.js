@@ -5,7 +5,6 @@ import { Navigate, useNavigate } from "react-router-dom";
 import Logo from '../assets/Logo.png';
 import './login.css';
 import { login } from '../api/user';
-import axios from 'axios';
 import { ReactSession } from 'react-client-session';
 
 const logo = {
@@ -49,13 +48,6 @@ const Login = () => {
 	useEffect(() => {
 		fetch();
 	}, []);
-
-	/*async function fetch() {
-		await login( 'MICUZ')
-			.then(response => {
-				setEmail(response);
-			});
-	}*/
 
 	async function handleClick(e) {
 		// Gestionar comprobacion email, identificacion y redireccion
