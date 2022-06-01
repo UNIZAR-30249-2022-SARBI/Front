@@ -6,9 +6,11 @@
     "\\src\\assets",
     "\\src\\components",
     "\\src\\components\\Calendar",
+    "\\src\\components\\NavBar",
+    "\\src\\components\\Schedule",
     "\\src\\pages",
     "\\src\\utils"
   ],
-  "SelectedNode": "\\src\\api\\subject.js",
+  "SelectedNode": "\\src\\components\\Schedule\\customSchedule.js",
   "PreviewInSolutionExplorer": false
 }

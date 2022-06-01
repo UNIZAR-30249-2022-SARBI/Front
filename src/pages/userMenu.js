@@ -8,6 +8,7 @@ import { ReactSession } from 'react-client-session';
 import { LayersControl, MapContainer, TileLayer, useMap,WMSTileLayer } from 'react-leaflet';
 import "leaflet/dist/leaflet.css";
 //import CustomWMSLayer from './CustomWMSLayer';
+import NavBar from '../components/NavBar/navbar';
 
 
 
@@ -79,31 +80,7 @@ const UserMenu = () => {
   let isMobile = (width <= 768);
   return (
     <>
-      <div style={column}>
-        <div style={isMobile ? column : row}>
-          <div style={logo}>
-            <img src={Logo} width="140px" height="140px" alt="Logo" />
-          </div>
-        </div>
-        <p data-testid='session-text'>Identificado como: {email}</p>
-        <div style={isMobile ? column : row}>
-          <div style={{ display: 'block', width: 100, padding: 10, marginLeft: 1400, marginTop: -140 }}>
-            <Dropdown>
-              <Dropdown.Toggle variant="success">
-                Menu
-              </Dropdown.Toggle>
-              <Dropdown.Menu>
-                <Dropdown.Item href="#" onClick={() => navigate("/dataLoad")}>
-                  Consultar Calendario
-                </Dropdown.Item>
-                <Dropdown.Item href="#" onClick={() => navigate("/createCalendar")}>
-                  Consultar Horario
-                </Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>
-          </div>
-        </div>          
-      </div>
+    <NavBar />
       <MapContainer center={[41.6836, -0.88605]} zoom={17.5} scrollWheelZoom={false} style={{ height: "450px", width: "80%" }}>
                   <TileLayer attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"/>
                   <LayersControl position= "topright">
