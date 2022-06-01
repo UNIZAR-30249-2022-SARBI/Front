@@ -10,6 +10,7 @@ import "leaflet/dist/leaflet.css";
 //import CustomWMSLayer from './CustomWMSLayer';
 
 
+import NavBar from '../components/NavBar/navbar';
 
 const row = {
     display: 'flex',
@@ -139,6 +140,7 @@ const AdminMenu = () => {
       </MapContainer>
 
 
+     <NavBar/>
     </>
 
   );

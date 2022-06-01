@@ -6,13 +6,15 @@ import "../components/Calendar/calendar.css";
 import { dayInSeconds } from "../components/Calendar/getCalendarData";
 import { Typography, MenuItem, FormControl, TextField, Select} from '@mui/material';
 import { getCalendars, createEmptyCalendar} from '../api/calendar';
+import 'bootstrap/dist/css/bootstrap.css';
+import NavBar from '../components/NavBar/navbar';
 
 const title = {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'start',
     color: 'black',
-    marginBottom:'2vh'
+    margin: '1vw'
 };
 
 const gen = {
@@ -33,9 +35,16 @@ const buttonRow = {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-around',
-    marginTop: '3vh',
     color: 'black',
     fontSize: 'larger'
+};
+
+const column = {
+    display: 'flex',
+    marginLeft: '5%',
+    alignItems: 'center',
+    marginTop: '2%',
+    marginRight: '5%',
 };
 
 const Form = () => {
@@ -98,79 +107,98 @@ const Form = () => {
     };
 
     return (
-        <div style={body}>
-            <div style={title}>
-                <h1>Calendario Anual</h1>
-            </div>
-                <FormControl variant="standard" sx={{ m: 4, minWidth: '15vw'}}>
-                    <Typography variant="h5" gutterBottom>
-                        Selección una versión del calendario:
-                    </Typography>
-                    <Select
-                        labelId="demo-simple-select-standard-label"
-                        id="demo-simple-select-standard"
-                    value={courseVersion}
-                    onChange={e => setCourseVersion(e.target.value)}
-                        sx={{ minWidth: '6vw', fontSize: '25px'}}
-                    >
-                        <MenuItem value="">
-                            <em>None</em>
-                        </MenuItem>
-                        {versionCourseList.map((c) => {
-                            let format = courseVersionParse(c.course, c.version);
-                            return <MenuItem sx={{ fontSize: '25px' }} value={format}>{format}</MenuItem>;
-                        })}
-                    </Select>
-            </FormControl>
-            <div style={buttonRow}>
-                <button onClick={goToModifyCalendar} style={gen}>Visualizar</button>
-            </div>
-            <div>
-                <FormControl variant="standard" sx={{ m: 8, minWidth: '15vw' }}>
-                    <Typography variant="h5" sx={{ m: 6 }} gutterBottom>
-                    O crea una nueva versión:
-                </Typography> 
-                        <Typography variant="h6" gutterBottom>
-                            Curso acádemico
-                        </Typography>
-
-                        <TextField
-                            id="standard-number"
-                        type="text"
-                        value={newCourse}
-                        onChange={e => {
-                            setNewCourse(e.target.value);
-                            setErrorMode(false)
-                        }}
-                            InputLabelProps={{
-                                shrink: true,
-                            }}
-                            variant="standard"
-                        inputProps={{ inputMode: 'text', style: {fontSize:'25px'}}}
-                                />
-                    <Typography variant="h6" sx={{ marginTop: 2 }} gutterBottom>
-                            Versión
-                        </Typography>
-                        <TextField
-                            id="standard-number"
-                            type="number"
-                        value={newVersion}
-                        onChange={e => {
-                            setNewVersion(e.target.value);
-                            setErrorMode(false)
-                        }}
-
-                            InputLabelProps={{
-                                shrink: true,
-                            }}
-                            variant="standard"
-                        inputProps={{ inputMode: 'text', pattern: '[0-9]*', style: { fontSize: '25px' } }}
-                            />
-                </FormControl>
-                {errorMode ? <p style={{ color: 'red' }}>No se ha podido crear el calendario {newCourse}v{newVersion}</p>:null}
+        <div className="container-fluid">
+            <NavBar />
+            <div class="row" style={column}>
+                <div style={title}>
+                    <h1>Calendario Anual</h1>
                 </div>
-            <div style={buttonRow}>
-                <button onClick={checkAndGoToModify} style={gen}>Crear</button>
+                <div className="row">
+                    <div className="col-1"></div>
+                    <div className="col-5">
+                        <div className="row mt-5"><pre>  </pre></div>
+                        <FormControl variant="standard" sx={{ m: 4, minWidth: '15vw' }}>
+                            <Typography variant="h5" gutterBottom>
+                                Selección una versión del calendario:
+                            </Typography>
+                            <Select
+                                labelId="demo-simple-select-standard-label"
+                                id="demo-simple-select-standard"
+                                value={courseVersion}
+                                onChange={e => setCourseVersion(e.target.value)}
+                                sx={{ minWidth: '6vw', fontSize: '25px' }}
+                            >
+                                <MenuItem value="">
+                                    <em>None</em>
+                                </MenuItem>
+                                {versionCourseList.map((c) => {
+                                    let format = courseVersionParse(c.course, c.version);
+                                    return <MenuItem sx={{ fontSize: '25px' }} value={format}>{format}</MenuItem>;
+                                })}
+                            </Select>
+                        </FormControl>
+                        <div className="row">
+                            <div className="col-2"></div>
+                            <div className="col-4">
+                                <button onClick={goToModifyCalendar} style={gen}>Visualizar</button>
+                            </div>
+                            <div className="col-6"></div>
+                        </div>
+                    </div>
+                    <div className="col-6 mt-3">
+                        <div>
+                            <FormControl variant="standard" sx={{ m: 8, minWidth: '15vw' }}>
+                                <Typography variant="h5" sx={{ m: 6 }} gutterBottom>
+                                    O crea una nueva versión:
+                                </Typography>
+                                <Typography variant="h6" gutterBottom>
+                                    Curso acádemico
+                                </Typography>
+
+                                <TextField
+                                    id="standard-number"
+                                    type="text"
+                                    value={newCourse}
+                                    onChange={e => {
+                                        setNewCourse(e.target.value);
+                                        setErrorMode(false);
+                                    }}
+                                    InputLabelProps={{
+                                        shrink: true,
+                                    }}
+                                    variant="standard"
+                                    inputProps={{ inputMode: 'text', style: { fontSize: '25px' } }}
+                                />
+                                <Typography variant="h6" sx={{ marginTop: 2 }} gutterBottom>
+                                    Versión
+                                </Typography>
+                                <TextField
+                                    id="standard-number"
+                                    type="number"
+                                    value={newVersion}
+                                    onChange={e => {
+                                        setNewVersion(e.target.value);
+                                        setErrorMode(false);
+                                    }}
+
+                                    InputLabelProps={{
+                                        shrink: true,
+                                    }}
+                                    variant="standard"
+                                    inputProps={{ inputMode: 'text', pattern: '[0-9]*', style: { fontSize: '25px' } }}
+                                />
+                            </FormControl>
+                            {errorMode ? <p style={{ color: 'red' }}>No se ha podido crear el calendario {newCourse}v{newVersion}</p> : null}
+                        </div>
+                        <div className="row">
+                            <div className="col-2"></div>
+                            <div className="col-4 ms-5">
+                                <button onClick={checkAndGoToModify} style={gen}>Crear</button>
+                            </div>
+                            <div className="col-5"></div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     );

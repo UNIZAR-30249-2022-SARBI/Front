@@ -17,7 +17,7 @@ import UserMenu from './pages/userMenu.js';
 
 function App() {
 	return (
-	  <div class="App-header">
+		<div class="App-header">
     <Router>
 		<Routes>
 			<Route path='/' exact={true} element={<Login/>} />
