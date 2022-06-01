@@ -10,6 +10,7 @@ import { Dropdown, DropdownButton } from 'react-bootstrap';
 import Logo from '../assets/Logo.png';
 import { ReactSession } from 'react-client-session';
 import { upload } from '../api/subject';
+import NavBar from '../components/NavBar/navbar';
 
 const column = {
     display: 'flex',
@@ -115,43 +116,36 @@ const DataLoad = () => {
 
     let isMobile = (width <= 768);
     return (
+        <div className="container-fluid">
+        <NavBar/>
         <div class="row" style={column}>
-
-            <Container fluid="md">
-                <Col>
-                <div style={logo}>
-					<img src={Logo} width= "140px" height="140px" alt="Logo" />
-			    </div>
-                <p>Identificado como: {email}</p>
-                </Col>
+                <div style={{justifyContent: "flex-start"}}>
+                    <h1>Carga de datos</h1>
+                </div>
+                <pre> </pre>
+                <div class="row">
+                <input
+                    type='file'
+                    accept='.xlsx'
+                    onChange={handleUpload}
+                />                    
+                </div>
+                <div style={!isMobile ? table : mobileTable}>
+                    <ReactExcel
+                        initialData={initialData}
+                        onSheetUpdate={(currentSheet) => setCurrentSheet(currentSheet)}
+                        activeSheetClassName='active-sheet'
+                        reactExcelClassName='react-excel'
+                    />
+                </div>
+                { error ? <label style={{color: "red", display: "flex", justifyContent: 'center', alignItems: 'center'}}>Se ha producido un error al cargar los datos. Inténtelo de nuevo</label> : null }
                 <p>&nbsp;</p>
-                <Col>
-                    <div style={{justifyContent: "flex-start"}}>
-                        <h1>Carga de datos</h1>
-                    </div>
-                    <div class="row">
-                    <input
-                        type='file'
-                        accept='.xlsx'
-                        onChange={handleUpload}
-                    />                    
-                    </div>
-                    <div style={!isMobile ? table : mobileTable}>
-                        <ReactExcel
-                            initialData={initialData}
-                            onSheetUpdate={(currentSheet) => setCurrentSheet(currentSheet)}
-                            activeSheetClassName='active-sheet'
-                            reactExcelClassName='react-excel'
-                        />
-                    </div>
-                    { error ? <label style={{color: "red", display: "flex", justifyContent: 'center', alignItems: 'center'}}>Se ha producido un error al cargar los datos. Inténtelo de nuevo</label> : null }
-                    <p>&nbsp;</p>
-                    <div style={!isMobile ? button : { display: "flex", justifyContent: 'center', alignItems: 'center',}}>  
-                        <button onClick={save} style={{ backgroundColor: "#8BC34A", color: 'whitesmoke', borderRadius: '10px', height: '40px', width: '120px', fontSize:'15px' }}> Importar </button>
-                    </div>
-                </Col>
-            </Container>
+                <div style={!isMobile ? button : { display: "flex", justifyContent: 'center', alignItems: 'center',}}>  
+                    <button onClick={save} style={{ backgroundColor: "#685cf4", color: 'whitesmoke', borderRadius: '10px', height: '40px', width: '120px', fontSize:'15px' }}> Importar </button>
+                </div>
+            </div>
         </div>
+
     )
 }
 

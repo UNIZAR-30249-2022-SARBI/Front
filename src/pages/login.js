@@ -87,7 +87,7 @@ const Login = () => {
 					<input style={{height: '4vh', width: '20vw', marginLeft: '5px'}} type="email" data-testid="email-input" placeholder="Correo electrónico" pattern=".+@unizar.es" required value={email} onChange={e => setEmail(e.target.value)} />
 				</div>
 				<div style={button}>
-					<button onClick={(e) => handleClick(e)} style={{ backgroundColor: "#8BC34A", color: 'whitesmoke', borderRadius: '10px', height: '40px', width: '120px', fontSize:'15px' }}> Login </button>
+					<button onClick={(e) => handleClick(e)} style={{ backgroundColor: "#685cf4", color: 'whitesmoke', borderRadius: '10px', height: '40px', width: '120px', fontSize:'15px' }}> Login </button>
 				</div>
 			</form>
 		</div>

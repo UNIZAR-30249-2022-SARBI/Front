@@ -9,6 +9,7 @@ import { Inject, ScheduleComponent, WorkWeek, ViewsDirective, ViewDirective, Dra
 import CustomSchedule from '../components/Schedule/customSchedule';
 import { getTeachingGroups } from '../api/schedule';
 import { getSubjects } from '../api/subject';
+import NavBar from '../components/NavBar/navbar';
 
 const title = {
     display: 'flex',
@@ -47,6 +48,23 @@ const drop = {
     justifyContent: 'space-between',
 }
 
+const column = {
+    display: 'flex',
+    marginLeft: '5%',
+    alignItems: 'center',
+    marginTop: '2%',
+    marginRight: '5%',
+};
+
+const gen = {
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: "#685cf4",
+    color: 'whitesmoke',
+    borderRadius: '1vh',
+    padding: '0.3vh 0.6vh'
+
+};
 
 const CreateSchedule = () => {
     const [career, setCareer] = useState('');
@@ -143,101 +161,116 @@ const CreateSchedule = () => {
     };
 
     return (
-        <div>
-
-
-            <div className="h1">
-                <h1>Horario</h1>
-            </div>
-                   
-            <div className="row m-4">
-                <div className="col-6">
-                    <Typography variant="h5" gutterBottom>
-                        Seleccionar plan de estudios
-                    </Typography>
-                    <Select
-                        labelId="demo-simple-select-standard-label"
-                        id="demo-simple-select-standard"
-                        value={career}
-                        onChange={e => careerChangeHandler(e.target.value)}
-                        sx={{ minWidth: '40vw', fontSize: '20px' }}
-                    >
-                        <MenuItem value="">
-                            <em>None</em>
-                        </MenuItem>
-                        {optionsCareer.map((c) => {
-                            return <MenuItem sx={{ fontSize: '20px' }} value={c}>{c}</MenuItem>;
-                        })}
-                    </Select>
+        <div className="container-fluid">
+            <NavBar />
+            <div class="row" style={column}>
+                <div className="h1">
+                    <h1>Horario</h1>
                 </div>
-                <div className="col-2">
-                    <Typography variant="h5" gutterBottom>
-                        Seleccionar curso
-                    </Typography>
-                    <Select
-                        labelId="demo-simple-select-standard-label"
-                        id="demo-simple-select-standard"
-                        value={course}
-                        onChange={e => courseChangeHandler(e.target.value)}
-                        sx={{ minWidth: '10vw', fontSize: '20px' }}
-                    >
-                        <MenuItem value="">
-                            <em>None</em>
-                        </MenuItem>
-                        {optionsCourse.map((c) => {
-                            return <MenuItem sx={{ fontSize: '20px' }} value={c}>{c}</MenuItem>;
-                        })}
-                    </Select>
+                <div className="row m-4">
+                    <div className="col-6">
+                        <FormControl variant="standard" sx={{minWidth: '15vw' }}>
+                            <Typography variant="h5" gutterBottom>
+                                Seleccionar plan de estudios
+                            </Typography>
+                            <Select
+                                labelId="demo-simple-select-standard-label"
+                                id="demo-simple-select-standard"
+                                value={career}
+                                onChange={e => careerChangeHandler(e.target.value)}
+                                sx={{ minWidth: '40vw', fontSize: '20px' }}
+                            >
+                                <MenuItem value="">
+                                    <em>None</em>
+                                </MenuItem>
+                                {optionsCareer.map((c) => {
+                                    return <MenuItem sx={{ fontSize: '20px' }} value={c}>{c}</MenuItem>;
+                                })}
+                            </Select>
+                        </FormControl>
+                        
+                    </div>
+                    <div className="col-2">
+                        <FormControl variant="standard" sx={{ minWidth: '8vw' }}>
+                            <Typography variant="h5" gutterBottom>
+                                Seleccionar curso
+                            </Typography>
+                            <Select
+                                labelId="demo-simple-select-standard-label"
+                                id="demo-simple-select-standard"
+                                value={course}
+                                onChange={e => courseChangeHandler(e.target.value)}
+                                sx={{ minWidth: '10vw', fontSize: '20px' }}
+                            >
+                                <MenuItem value="">
+                                    <em>None</em>
+                                </MenuItem>
+                                {optionsCourse.map((c) => {
+                                    return <MenuItem sx={{ fontSize: '20px' }} value={c}>{c}</MenuItem>;
+                                })}
+                            </Select>
+                        </FormControl>
+                       
+                    </div>
+                    <div className="col-2">
+                        <FormControl variant="standard" sx={{ minWidth: '8vw' }}>
+                            <Typography variant="h5" gutterBottom>
+                                Seleccionar Grupo
+                            </Typography>
+                            <Select
+                                labelId="demo-simple-select-standard-label"
+                                id="demo-simple-select-standard"
+                                value={group}
+                                onChange={e => groupChangeHandler(e.target.value)}
+                                sx={{ minWidth: '10vw', fontSize: '20px' }}
+                            >
+                                <MenuItem value="">
+                                    <em>None</em>
+                                </MenuItem>
+                                {optionsGroups.map((c) => {
+                                    return <MenuItem sx={{ fontSize: '20px' }} value={c}>{c}</MenuItem>;
+                                })}
+                            </Select>
+                        </FormControl>
+                        
+                    </div>
+                    <div className="col-2">
+                        <FormControl variant="standard" sx={{ minWidth: '10vw' }}>
+                            <Typography variant="h5" gutterBottom>
+                                Seleccionar semestre
+                            </Typography>
+                            <Select
+                                labelId="demo-simple-select-standard-label"
+                                id="demo-simple-select-standard"
+                                value={semester}
+                                onChange={e => semesterChangeHandler(e.target.value)}
+                                sx={{ minWidth: '10vw', fontSize: '20px' }}
+                            >
+                                <MenuItem value="">
+                                    <em>None</em>
+                                </MenuItem>
+                                {optionsSemester.map((c) => {
+                                    return <MenuItem sx={{ fontSize: '20px' }} value={c}>{c}</MenuItem>;
+                                })}
+                            </Select>
+                        </FormControl>
+                        
+                    </div>
                 </div>
-                <div className="col-2">
-                    <Typography variant="h5" gutterBottom>
-                        Seleccionar Grupo
-                    </Typography>
-                    <Select
-                        labelId="demo-simple-select-standard-label"
-                        id="demo-simple-select-standard"
-                        value={group}
-                        onChange={e => groupChangeHandler(e.target.value)}
-                        sx={{ minWidth: '10vw', fontSize: '20px' }}
-                    >
-                        <MenuItem value="">
-                            <em>None</em>
-                        </MenuItem>
-                        {optionsGroups.map((c) => {
-                            return <MenuItem sx={{ fontSize: '20px' }} value={c}>{c}</MenuItem>;
-                        })}
-                    </Select>
-                </div>
-                <div className="col-2">
-                    <Typography variant="h5" gutterBottom>
-                        Seleccionar semestre
-                    </Typography>
-                    <Select
-                        labelId="demo-simple-select-standard-label"
-                        id="demo-simple-select-standard"
-                        value={semester}
-                        onChange={e => semesterChangeHandler(e.target.value)}
-                        sx={{ minWidth: '10vw', fontSize: '20px' }}
-                    >
-                        <MenuItem value="">
-                            <em>None</em>
-                        </MenuItem>
-                        {optionsSemester.map((c) => {
-                            return <MenuItem sx={{ fontSize: '20px' }} value={c}>{c}</MenuItem>;
-                        })}
-                    </Select>
-                </div>
-            </div>
-            <div className="row">
+                <div className="row">
                 
-            </div>
+                </div>
             
-            <div className="row">
-                <Button variant="contained" onClick={showValues}>Generar</Button>
+                <div className="row mt-4 mb-4">
+                    <div className="col-6"></div>
+                    <div className="col-3">
+                        <button onClick={showValues} style={gen}>Generar</button>
+                    </div>
+                    <div className="col-3"></div>
+                </div>
+
+                <CustomSchedule />
             </div>
-
-            <CustomSchedule />
-
         </div>
     )
 }
