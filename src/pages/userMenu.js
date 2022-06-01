@@ -52,7 +52,7 @@ const mapid = {
 
 
 
-const AdminMenu = () => {
+const UserMenu = () => {
 
   const navigate = useNavigate();
 
@@ -94,13 +94,10 @@ const AdminMenu = () => {
               </Dropdown.Toggle>
               <Dropdown.Menu>
                 <Dropdown.Item href="#" onClick={() => navigate("/dataLoad")}>
-                  Cargar datos
+                  Consultar Calendario
                 </Dropdown.Item>
                 <Dropdown.Item href="#" onClick={() => navigate("/createCalendar")}>
-                  Calendarios
-                </Dropdown.Item>
-                <Dropdown.Item href="#" onClick={() => navigate("/createSchedule")}>
-                  Horarios
+                  Consultar Horario
                 </Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
@@ -144,7 +141,4 @@ const AdminMenu = () => {
   );
 };
 
-export default AdminMenu;
-
-//                       <WMSTileLayer className="a" url="http://localhost:8080/geoserver/proyecto/wms"   format= "image/png" layers= "proyecto:planta0" transparent={true} opacity= "0.5" />
-//                       <CustomWMSLayer layers ={['proyecto:planta0']} options={{ "format": "image/png", "transparent":"true", "opacity": "0.5", "info_format":"text/html" }} url="http://localhost:8080/geoserver/proyecto/wms"/>
+export default UserMenu;

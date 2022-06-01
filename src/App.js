@@ -13,6 +13,7 @@ import AdminMenu from './pages/adminMenu.js';
 import CreateCalendar from './pages/createCalendar.js';
 import ModifyCalendar from './pages/modifyCalendar.js';
 import CreateSchedule from './pages/createSchedule.js';
+import UserMenu from './pages/userMenu.js';
 
 function App() {
 	return (
@@ -26,6 +27,8 @@ function App() {
 			<Route path='/createCalendar' element={<CreateCalendar />} />
 			<Route path='/modifyCalendar/:course/:version' element={<ModifyCalendar />} />
 			<Route path='/createSchedule' element={<CreateSchedule />} />
+			<Route path='/userMenu' element={<UserMenu />} />
+
 		</Routes>
 	</Router>
 			</div>

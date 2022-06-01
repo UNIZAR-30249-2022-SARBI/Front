@@ -70,7 +70,7 @@ const Login = () => {
 						if(response.isAdmin)
 							history("/adminMenu");
 						else
-							history("/adminMenu")
+							history("/userMenu")
                     }
 				});
 		}
