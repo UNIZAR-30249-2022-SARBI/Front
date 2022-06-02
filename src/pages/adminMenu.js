@@ -11,6 +11,7 @@ import "leaflet/dist/leaflet.css";
 
 
 import NavBar from '../components/NavBar/navbar';
+import EINAMap from '../components/map';
 
 const row = {
     display: 'flex',
@@ -81,35 +82,7 @@ const AdminMenu = () => {
   return (
       <>
       <NavBar />
-      <br/>
-      <MapContainer center={[41.6836, -0.88605]} zoom={17.5} scrollWheelZoom={false} style={{ height: "450px", width: "80%" }}>
-                  <TileLayer attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"/>
-                  <LayersControl position= "topright">
-                    <LayersControl.Overlay checked name= "Plantas 0">
-                      <WMSTileLayer name="a" url="http://localhost:8080/geoserver/proyecto/wms"   format= "image/png" layers= "proyecto:planta0" transparent={true} opacity= "0.5" />
-
-                    </LayersControl.Overlay>
-                    <LayersControl.Overlay name=  "Plantas 1">
-                     <WMSTileLayer url="http://localhost:8080/geoserver/proyecto/wms"   format= "image/png" layers= "proyecto:planta1" transparent={true} opacity= "0.5"/>
-                    </LayersControl.Overlay>
-                    <LayersControl.Overlay name=  "Plantas 2">
-                     <WMSTileLayer url="http://localhost:8080/geoserver/proyecto/wms"   format= "image/png" layers= "proyecto:planta2" transparent={true} opacity= "0.5"/>
-                    </LayersControl.Overlay>
-                    <LayersControl.Overlay name=  "Plantas 3">
-                     <WMSTileLayer url="http://localhost:8080/geoserver/proyecto/wms"   format= "image/png" layers= "proyecto:planta3" transparent={true} opacity= "0.5"/>
-                    </LayersControl.Overlay>
-                    <LayersControl.Overlay name=  "Planta 4 (solo Edif.ADA)">
-                     <WMSTileLayer url="http://localhost:8080/geoserver/proyecto/wms"   format= "image/png" layers= "proyecto:planta4" transparent={true} opacity= "0.5"/>
-                    </LayersControl.Overlay>
-                    <LayersControl.Overlay name=  "Planta 5 (solo Edif.ADA)">
-                     <WMSTileLayer url="http://localhost:8080/geoserver/proyecto/wms"   format= "image/png" layers= "proyecto:planta5" transparent={true} opacity= "0.5"/>
-                    </LayersControl.Overlay>
-                    <LayersControl.Overlay name=  "Planta Sótanos">
-                     <WMSTileLayer url="http://localhost:8080/geoserver/proyecto/wms"   format= "image/png" layers= "proyecto:sotano1" transparent={true} opacity= "0.5"/>
-                    </LayersControl.Overlay>
-
-                  </LayersControl>
-      </MapContainer>
+     <EINAMap/>
     </>
 
   );

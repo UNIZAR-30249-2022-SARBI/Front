@@ -7,9 +7,16 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import { ReactSession } from 'react-client-session';
 import { LayersControl, MapContainer, TileLayer, useMap,WMSTileLayer } from 'react-leaflet';
 import "leaflet/dist/leaflet.css";
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Modal from '@mui/material/Modal';
 //import CustomWMSLayer from './CustomWMSLayer';
 import NavBar from '../components/NavBar/navbar';
+import EINAMap from '../components/map';
+import { Typography, FormControl, TextField } from '@mui/material';
 
+import { sendRequest } from '../api/request';
+import UserNavBar from '../components/NavBar/userNavbar';
 
 
 const row = {
@@ -51,7 +58,26 @@ const mapid = {
   height: '2px'
 };
 
+const gen = {
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: "#685cf4",
+    color: 'whitesmoke',
+    borderRadius: '1vh',
+    padding: '0.3vh 0.6vh',
+    fontSize: '30px'
+};
 
+const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    bgcolor: 'background.paper',
+    boxShadow: 24,
+    p: 4,
+    border: '0.4vh solid graylight',
+};
 
 const UserMenu = () => {
 
@@ -77,42 +103,77 @@ const UserMenu = () => {
     }
   }, []);
   
-  let isMobile = (width <= 768);
+    let isMobile = (width <= 768);
+
+    const [open, setOpen] = React.useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
+    const [request, setRequest] = React.useState("");
+
+    async function send() {
+        console.log("SEND")
+        await sendRequest(request, email, "")
+            .then(response => {
+                if (response) 
+                    alert("Petición enviado correctamente");
+                else
+                    alert("Se ha producido un error, inténtelo de nuevo.");
+                handleClose();
+            }).catch(err => {
+                alert("Se ha producido un error, inténtelo de nuevo.");
+                handleClose();
+            });
+    }
+
   return (
     <>
-    <NavBar />
-      <MapContainer center={[41.6836, -0.88605]} zoom={17.5} scrollWheelZoom={false} style={{ height: "450px", width: "80%" }}>
-                  <TileLayer attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"/>
-                  <LayersControl position= "topright">
-                    <LayersControl.Overlay checked name= "Plantas 0">
-                      <WMSTileLayer name="a" url="http://localhost:8080/geoserver/proyecto/wms"   format= "image/png" layers= "proyecto:planta0" transparent={true} opacity= "0.5" />
+        <UserNavBar />
+        <EINAMap />
+          <div className="row m-4">
+              <div style={{marginLeft:'70vw'}}>
+                  <button onClick={handleOpen} style={gen}>Crear</button>
+              </div>
 
-                    </LayersControl.Overlay>
-                    <LayersControl.Overlay name=  "Plantas 1">
-                     <WMSTileLayer url="http://localhost:8080/geoserver/proyecto/wms"   format= "image/png" layers= "proyecto:planta1" transparent={true} opacity= "0.5"/>
-                    </LayersControl.Overlay>
-                    <LayersControl.Overlay name=  "Plantas 2">
-                     <WMSTileLayer url="http://localhost:8080/geoserver/proyecto/wms"   format= "image/png" layers= "proyecto:planta2" transparent={true} opacity= "0.5"/>
-                    </LayersControl.Overlay>
-                    <LayersControl.Overlay name=  "Plantas 3">
-                     <WMSTileLayer url="http://localhost:8080/geoserver/proyecto/wms"   format= "image/png" layers= "proyecto:planta3" transparent={true} opacity= "0.5"/>
-                    </LayersControl.Overlay>
-                    <LayersControl.Overlay name=  "Planta 4 (solo Edif.ADA)">
-                     <WMSTileLayer url="http://localhost:8080/geoserver/proyecto/wms"   format= "image/png" layers= "proyecto:planta4" transparent={true} opacity= "0.5"/>
-                    </LayersControl.Overlay>
-                    <LayersControl.Overlay name=  "Planta 5 (solo Edif.ADA)">
-                     <WMSTileLayer url="http://localhost:8080/geoserver/proyecto/wms"   format= "image/png" layers= "proyecto:planta5" transparent={true} opacity= "0.5"/>
-                    </LayersControl.Overlay>
-                    <LayersControl.Overlay name=  "Planta Sótanos">
-                     <WMSTileLayer url="http://localhost:8080/geoserver/proyecto/wms"   format= "image/png" layers= "proyecto:sotano1" transparent={true} opacity= "0.5"/>
-                    </LayersControl.Overlay>
-
-                  </LayersControl>
-
-                  
-      </MapContainer>
-
-
+          </div>
+          <Modal
+              open={open}
+              onClose={handleClose}
+              aria-labelledby="modal-modal-title"
+              aria-describedby="modal-modal-description"
+          >
+              <Box sx={style}>
+                  <FormControl variant="standard" sx={{ m: 10, minWidth: '20vw' }}>
+                      <Typography variant="h5" gutterBottom>
+                          Petición
+                      </Typography>
+                      <TextField
+                          id="standard-number"
+                          type="text"
+                          value={request}
+                          placeholder="Descripción"
+                          onChange={e => {
+                              setRequest(e.target.value);
+                          }}
+                          InputLabelProps={{
+                              shrink: true,
+                          }}
+                          variant="standard"
+                          inputProps={{ inputMode: 'text', style: { fontSize: '20px', minHeight: '20vh'} }}
+                      />
+                      <div className="row mt-4">
+                          <div className="col-1">
+                            </div>
+                          <div className="col-4">
+                              <button onClick={() => { handleClose(); }} style={gen}>Cancelar</button>
+                          </div>
+                          <div className="col-2">
+                          </div>
+                          <div className="col-4">
+                              <button onClick={() => send()} style={gen}>Enviar</button>
+                          </div>                      </div>
+                  </FormControl>
+              </Box>
+          </Modal>
     </>
 
   );

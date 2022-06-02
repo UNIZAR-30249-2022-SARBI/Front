@@ -12,6 +12,7 @@ import { jsPDF } from "jspdf";
 import html2canvas from 'html2canvas';
 import { Typography, Accordion, AccordionSummary, AccordionDetails } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import UserNavBar from '../components/NavBar/userNavbar';
 
 const title = {
     display: 'flex',
@@ -42,14 +43,13 @@ const buttonRow = {
     fontSize: 'larger'
 };
 
-const ModifyCalendar = () => {
+const UserCalendar = () => {
     const history = useNavigate();
-
-    const { course, version } = useParams();
     const [firstCalendarArray, setFirstCalendarArray] = useState([]);
     const [secondCalendarArray, setSecondCalendarArray] = useState([]);
     const [thirdCalendarArray, setThirdCalendarArray] = useState([]);
-
+    let course = "2021-22";
+    let version = 1;
     useEffect(() => {
         fetchCalendar();
     }, []);
@@ -72,23 +72,6 @@ const ModifyCalendar = () => {
             });
     }
 
-    function addOneDay(date) {
-        return new Date(new Date(date).getTime() + dayInSeconds);
-    }
-
-    async function deleteCalendar() {
-        await deleteCalendarEINA(course, version)
-            .then(response => {
-                if (!response) {
-                    //error
-                } else {
-                    //éxito
-                    history('/createCalendar');
-                }
-            });
-        await fetchCalendar();
-    }
-
     //Calendar
     const calendarComponent = (title, calendarArray, editable, enableHeader) => {
         return (<div> <br />
@@ -101,60 +84,31 @@ const ModifyCalendar = () => {
     };
 
     const CalendarRender = () => (<div id="Calendar">
-        {firstCalendarArray.length > 0 ? calendarComponent("Primer semestre", firstCalendarArray, true, true) : null}
-        {secondCalendarArray.length > 0 ? calendarComponent("Segundo semestre", secondCalendarArray, true, true) : null}
-        {thirdCalendarArray.length > 0 ? calendarComponent("Período exámenes 2ª Convocatoria", thirdCalendarArray, true, false) : null}
+        {firstCalendarArray.length > 0 ? calendarComponent("Primer semestre", firstCalendarArray, false, true) : null}
+        {secondCalendarArray.length > 0 ? calendarComponent("Segundo semestre", secondCalendarArray, false, true) : null}
+        {thirdCalendarArray.length > 0 ? calendarComponent("Período exámenes 2ª Convocatoria", thirdCalendarArray, false, false) : null}
         <br />
         {firstCalendarArray.length > 0 ? <LegendHeader /> : null}
     </div>);
 
-    const savePdf = () => {
-        if (firstCalendarArray.length > 0) {
-            const input = document.getElementById('Calendar');
-            html2canvas(input)
-                .then((canvas) => {
-                    let imgWidth = 200;
-                    let imgHeight = 320;
-                    const year = getStartYear();
-                    const imgData = canvas.toDataURL('img/png');
-                    const pdf = new jsPDF('p', 'mm', 'a4');
-                    pdf.addImage(imgData, 'PNG', imgWidth * 0.1, imgHeight * 0.02, imgWidth * 0.8, imgHeight * 0.8);
-                    pdf.save("calendario_" + (year - 1) + "_" + year + "v" + version + ".pdf");
-                });
-        }
-    };
+
 
     return (
+        <>
+        <UserNavBar />
         <div style={body}>
-            <NavBar/>
             <div style={title}>
                 <h1>Calendario Anual {course}v{version}</h1>
                 <br />
                 <br />
             </div>
             <div>
-                <Accordion>
-                    <AccordionSummary
-                        expandIcon={<ExpandMoreIcon />}
-                        aria-controls="panel1a-content"
-                        id="panel1a-header"
-                    >
-                        <Typography sx={{ m: 1, fontSize: '20px' }}> {firstCalendarArray.length > 0 ? "Cambiar" : "Rellenar"} fechas de períodos </Typography>
-                    </AccordionSummary>
-                    <AccordionDetails>
-                        <CalendarForm option={firstCalendarArray.length > 0} course={course}
-                            version={version} fetchCalendar={fetchCalendar} />
-                    </AccordionDetails>
-                </Accordion>
                 <CalendarRender />
             </div>
             <br />
-            <div style={buttonRow}>
-                {firstCalendarArray.length > 0 ? <button onClick={savePdf} style={gen}>Exportar a PDF</button> : null}
-                {firstCalendarArray.length > 0 ? <button onClick={() => deleteCalendar()} style={gen}>Eliminar</button> : null}
             </div>
-        </div>
+        </>
     );
 };
 
-export default ModifyCalendar;
+export default UserCalendar;

@@ -22,7 +22,7 @@ const logo = {
     height: '1px'
 };
 
-const NavBar = () => {
+const UserNavBar = () => {
     const [anchorEl, setAnchorEl] = React.useState(null);
 
     const navigate = useNavigate();
@@ -46,8 +46,8 @@ const NavBar = () => {
             <div className="row">
                 <div className="col-4 ms-2">
                     <button style={{
-                        backgroundColor: 'transparent', borderWidth: 0
-                    }}><img src={Logo} width="160" height="160" alt="Logo" onClick={() => navigate("/adminMenu")} /></button>                </div>
+                        backgroundColor: 'transparent', borderWidth:0}}><img src={Logo} width="160" height="160" alt="Logo" onClick={() => navigate("/userMenu")} /></button>
+                </div>
                 <div className="col-5 me-5">
                 </div>
                 <div className="col-2 mt-5 ms-5" aligh="left">
@@ -79,10 +79,8 @@ const NavBar = () => {
                                 'aria-labelledby': 'basic-button',
                             }}
                         >
-                            <MenuItem onClick={() => navigate("/dataLoad")}>Cargar datos</MenuItem>
-                            <MenuItem onClick={() => navigate("/createCalendar")}>Calendarios</MenuItem>
-                            <MenuItem onClick={() => navigate("/createSchedule")}>Horarios</MenuItem>
-                            <MenuItem onClick={() => navigate("/requestList")}>Peticiones</MenuItem>
+                            <MenuItem onClick={() => navigate("/userCalendar")}>Calendario</MenuItem>
+                            <MenuItem onClick={() => navigate("/userSchedule")}>Horarios</MenuItem>
                         </Menu>
                     </div>
                 </div>
@@ -92,4 +90,4 @@ const NavBar = () => {
     );
 };
 
-export default NavBar;
+export default UserNavBar;

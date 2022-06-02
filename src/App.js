@@ -14,6 +14,9 @@ import CreateCalendar from './pages/createCalendar.js';
 import ModifyCalendar from './pages/modifyCalendar.js';
 import CreateSchedule from './pages/createSchedule.js';
 import UserMenu from './pages/userMenu.js';
+import RequestList from './pages/requestList.js';
+import UserCalendar from './pages/userCalendar';
+import UserSchedule from './pages/userSchedule';
 
 function App() {
 	return (
@@ -28,6 +31,9 @@ function App() {
 			<Route path='/modifyCalendar/:course/:version' element={<ModifyCalendar />} />
 			<Route path='/createSchedule' element={<CreateSchedule />} />
 			<Route path='/userMenu' element={<UserMenu />} />
+			<Route path='/requestList' element={<RequestList />} />
+			<Route path='/userCalendar' element={<UserCalendar />} />
+			<Route path='/userSchedule' element={<UserSchedule />} />
 
 		</Routes>
 	</Router>
