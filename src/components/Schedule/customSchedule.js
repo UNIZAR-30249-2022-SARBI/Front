@@ -53,17 +53,18 @@ export default class App extends Component {
     componentWillUpdate() {
         const newContext = this.context;
         const contextAux = this.state.ctx;
-        if (Object.keys(this.state.ctx).length != 0) {
-            if (contextAux.selectedCareer[0] != newContext.selectedCareer[0] || contextAux.selectedGrade[0] !=
-                newContext.selectedGrade[0] || contextAux.selectedSemester[0] != newContext.selectedSemester[0]
-                || contextAux.selectedGroup[0] != newContext.selectedGroup[0]) {
-                const dataAux = [];
-                this.state.data = dataAux;
-                this.setState({ data: dataAux, ctx: newContext });
+        if(this.state.cts)
+            if (Object.keys(this.state.ctx).length != 0) {
+                if (contextAux.selectedCareer[0] != newContext.selectedCareer[0] || contextAux.selectedGrade[0] !=
+                    newContext.selectedGrade[0] || contextAux.selectedSemester[0] != newContext.selectedSemester[0]
+                    || contextAux.selectedGroup[0] != newContext.selectedGroup[0]) {
+                    const dataAux = [];
+                    this.state.data = dataAux;
+                    this.setState({ data: dataAux, ctx: newContext });
+                }
+            } else {
+                this.setState({ data: this.state.data, ctx: newContext });
             }
-        } else {
-            this.setState({ data: this.state.data, ctx: newContext });
-        }
     }
 
     calendarCollections = [

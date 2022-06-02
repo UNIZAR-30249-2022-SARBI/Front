@@ -130,8 +130,8 @@ const UserMenu = () => {
         <UserNavBar />
         <EINAMap />
           <div className="row m-4">
-              <div style={{marginLeft:'70vw'}}>
-                  <button onClick={handleOpen} style={gen}>Crear</button>
+              <div style={{marginLeft:'68vw'}}>
+                  <button onClick={handleOpen} style={gen}>Enviar petición</button>
               </div>
 
           </div>

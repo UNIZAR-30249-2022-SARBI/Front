@@ -12,6 +12,7 @@ import { jsPDF } from "jspdf";
 import html2canvas from 'html2canvas';
 import { Typography, Accordion, AccordionSummary, AccordionDetails } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import NavBar from '../components/NavBar/navbar';
 
 const title = {
     display: 'flex',
@@ -125,8 +126,9 @@ const ModifyCalendar = () => {
     };
 
     return (
+        <>
+        <NavBar />
         <div style={body}>
-            <NavBar/>
             <div style={title}>
                 <h1>Calendario Anual {course}v{version}</h1>
                 <br />
@@ -153,7 +155,8 @@ const ModifyCalendar = () => {
                 {firstCalendarArray.length > 0 ? <button onClick={savePdf} style={gen}>Exportar a PDF</button> : null}
                 {firstCalendarArray.length > 0 ? <button onClick={() => deleteCalendar()} style={gen}>Eliminar</button> : null}
             </div>
-        </div>
+            </div>
+            </>
     );
 };
 
